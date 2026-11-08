@@ -4,20 +4,145 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Growth</title>
-<meta name="description" content="Growth, finanzas personales para iPhone y Mac. Pronto.">
+<meta name="description" content="Growth anota lo que pagas y te dice cómo va tu mes. Para iPhone y Mac.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="Growth">
+<meta property="og:description" content="Growth anota lo que pagas y te dice cómo va tu mes. Para iPhone y Mac.">
+<meta property="og:image" content="assets/screens/insights.jpg">
 <style>
-:root{color-scheme:light dark;--bg:#f6f7f1;--ink:#14281d;--muted:#5a6a60}
-@media (prefers-color-scheme:dark){:root{--bg:#0d1f16;--ink:#eef3ea;--muted:#a3b3a8}}
-body{margin:0;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:20px;box-sizing:border-box;background:var(--bg);color:var(--ink);font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;text-align:center}
-h1{font-size:44px;letter-spacing:-.02em;margin:0}
-p{margin:0}
-span{background:#c9f25d;color:#14281d;padding:2px 12px;border-radius:8px;font-size:20px}
-a{position:absolute;bottom:28px;color:var(--muted);font-size:15px}
+:root{
+  --forest:#0f3d27;--lime:#b9f26b;--canvas:#fbfcf9;--ink:#14281d;--muted:#5a6a60;
+  --on-forest:#ffffff;--on-forest-muted:rgba(255,255,255,.7);--line:#e3e8df;--card:#ffffff;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--canvas:#0b1a12;--ink:#eef3ea;--muted:#a3b3a8;--line:#203528;--card:#11251a}}
+:root[data-theme="dark"]{--canvas:#0b1a12;--ink:#eef3ea;--muted:#a3b3a8;--line:#203528;--card:#11251a}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);color:var(--ink);font:17px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+@media (min-width:720px){.wrap{padding:0 32px}}
+
+/* Portada: el verde profundo de la app. */
+.hero{background:var(--forest);color:var(--on-forest);border-radius:0 0 36px 36px;overflow:hidden}
+.top{display:flex;align-items:center;justify-content:space-between;padding-top:20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:20px;letter-spacing:-.01em}
+.brand img{width:34px;height:34px;border-radius:9px}
+.top nav a{color:var(--on-forest-muted);text-decoration:none;font-size:15px}
+.top nav a:hover{color:var(--on-forest)}
+.hero-grid{display:grid;gap:36px;padding:48px 0 0;align-items:end}
+@media (min-width:880px){.hero-grid{grid-template-columns:1.1fr .9fr;padding-top:72px}}
+.hero h1{font-size:clamp(38px,7vw,64px);line-height:1.04;letter-spacing:-.03em;margin:0 0 18px;font-weight:700}
+.hero h1 span{color:var(--lime)}
+.lead{font-size:clamp(18px,2.2vw,21px);color:var(--on-forest-muted);margin:0 0 30px;max-width:30em}
+.hero-copy{padding-bottom:56px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:54px;padding:0 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;transition:transform .15s ease}
+.btn:active{transform:scale(.97)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn-store{background:#fff;color:#09100c}
+.btn-mac{background:var(--lime);color:#09100c}
+.btn.soon{opacity:.55;pointer-events:none}
+.note{margin:14px 0 0;font-size:14px;color:var(--on-forest-muted)}
+.phone{justify-self:center;width:min(330px,82vw);margin-bottom:-6px}
+.phone img{display:block;width:100%;height:auto;border-radius:44px 44px 0 0;border:10px solid #0a2a1a;border-bottom:0;box-shadow:0 -10px 60px rgba(0,0,0,.25)}
+
+/* Cada sección responde una pregunta distinta. */
+section{padding:72px 0 0}
+.row{display:grid;gap:28px;align-items:center}
+@media (min-width:820px){.row{grid-template-columns:1fr 1fr;gap:64px}.row.flip .shot{order:2}}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:-.02em;margin:0 0 12px}
+section p{margin:0;color:var(--muted);font-size:18px;max-width:28em}
+.shot{justify-self:center}
+.shot img{display:block;width:min(300px,78vw);height:auto;border-radius:36px;border:8px solid var(--card);box-shadow:0 20px 50px rgba(15,61,39,.16)}
+.mac .shot{justify-self:stretch}
+.mac .shot img{width:100%;max-width:560px;border-radius:18px;border:0;box-shadow:0 24px 60px rgba(15,61,39,.22)}
+.privacy{margin:88px 0 0;padding:28px;border-radius:28px;background:var(--card);border:1px solid var(--line)}
+@media (min-width:720px){.privacy{padding:36px}}
+.privacy h2{font-size:clamp(24px,3vw,30px)}
+.privacy p{color:var(--muted);font-size:18px;margin:0;max-width:40em}
+footer{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;padding:48px 0 40px;color:var(--muted);font-size:14px}
+footer a{text-decoration:none}
+footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
-<h1>Growth</h1>
-<p><span>Pronto</span></p>
-<a href="privacy/">Privacidad</a>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="./"><img src="assets/apple-touch-icon.png" alt="">Growth</a>
+      <nav><a href="privacy/">Privacidad</a></nav>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1>Pagas con Apple&nbsp;Pay.<br><span>Growth lo anota.</span></h1>
+        <p class="lead">Ves cuánto te queda hasta tu próximo ingreso, en qué se te va el mes y qué pago viene. En tu iPhone y en tu Mac.</p>
+        <div class="cta">
+          <a class="btn btn-store soon" data-link="appStore" href="#">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
+            <span data-label>Muy pronto en el App Store</span>
+          </a>
+          <a class="btn btn-mac soon" data-link="mac" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>
+            <span data-label>Muy pronto para Mac</span>
+          </a>
+        </div>
+        <p class="note">Mac: macOS 14 o posterior. Entras escaneando un código con tu iPhone.</p>
+      </div>
+      <div class="phone"><img src="assets/screens/insights.jpg" alt="Growth en el iPhone: lo que gastaste este mes y lo que te queda hasta tu próximo ingreso" width="786" height="1704"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <div class="row">
+      <div class="shot"><img src="assets/screens/movements.jpg" alt="Movimientos del mes en Growth" width="786" height="1704" loading="lazy"></div>
+      <div>
+        <h2>Tu mes, en una cifra</h2>
+        <p>Lo que entró, lo que salió y el ritmo de cada día. Cada movimiento con su categoría y su cuenta.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="row flip mac">
+      <div class="shot"><img src="assets/screens/mac-link.jpg" alt="Growth en la Mac: un código QR para entrar con el iPhone" width="1900" height="820" loading="lazy"></div>
+      <div>
+        <h2>En la Mac, sin contraseñas</h2>
+        <p>Abre Growth en tu Mac y escanea el código con tu iPhone. Entras con tu cuenta y listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="privacy">
+    <h2>Tus datos son tuyos</h2>
+    <p>Tus movimientos viven en tus dispositivos. Si activas Growth Sync, viajan cifrados y nosotros no podemos leerlos. <a href="privacy/">Lee la política de privacidad</a>.</p>
+  </div>
+
+  <footer>
+    <span>© 2026 Growth</span>
+    <span><a href="privacy/">Privacidad</a></span>
+  </footer>
+</main>
+
+<script>
+// Los enlaces de descarga viven solo aquí. Mientras estén vacíos, el botón
+// dice «Muy pronto» en vez de llevar a una página que no existe.
+const LINKS = {
+  appStore: "", // cuando la app esté publicada: https://apps.apple.com/app/id<número>
+  mac: "",      // cuando haya DMG firmado: https://github.com/jahazielgg/growth-web/releases/latest/download/Growth.dmg
+};
+const LABELS = { appStore: "Descargar en el App Store", mac: "Descargar para Mac" };
+for (const button of document.querySelectorAll("[data-link]")) {
+  const key = button.dataset.link;
+  if (!LINKS[key]) continue;
+  button.href = LINKS[key];
+  button.classList.remove("soon");
+  button.querySelector("[data-label]").textContent = LABELS[key];
+}
+</script>
 </body>
 </html>
