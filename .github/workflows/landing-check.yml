@@ -1,0 +1,26 @@
+name: Growth landing checks
+
+on:
+  push:
+    branches:
+      - "feature/**"
+  pull_request:
+    paths:
+      - "index.html"
+      - "assets/styles/vision.css"
+      - "assets/scripts/vision.js"
+      - "scripts/check-landing.mjs"
+      - ".github/workflows/landing-check.yml"
+
+jobs:
+  static-landing:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate JavaScript syntax
+        run: node --check assets/scripts/vision.js
+      - name: Validate landing structure
+        run: node scripts/check-landing.mjs
