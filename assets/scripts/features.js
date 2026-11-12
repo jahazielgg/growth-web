@@ -1,19 +1,21 @@
 // «Todo lo que tienes con Growth»: las funciones, en segundo plano.
-// Salen de la app y de la política de privacidad; nada aquí es una promesa nueva.
+// Landing de visión: describe el producto hacia el que vamos, no solo lo que ya está publicado.
 (() => {
   const ALL = [
-    ["Movimientos", "Lo que entró y lo que salió, con su categoría y su cuenta."],
-    ["Hasta tu próximo ingreso", "Cuánto te queda y qué pago viene."],
-    ["Cuentas y categorías", "Tu dinero separado por cuenta y por en qué se va."],
-    ["Pagos fijos y calendario", "Los pagos que se repiten; si lo pides, crea el evento en tu calendario."],
-    ["Presupuestos y metas", "Presupuesto por categoría, comparación con el mes pasado y metas."],
-    ["Apple Pay y atajos", "Registra tus compras con los atajos que configuras."],
-    ["ChatGPT y Claude", "Dile a tu asistente un gasto y queda registrado."],
-    ["Cuentas compartidas", "Invita a alguien y vean juntos lo que registran. La invitación pasa por iCloud."],
+    ["Captura sola", "Apple Pay, avisos del banco y Android se vuelven movimientos sin que escribas nada."],
+    ["Pendientes", "Lo que no está claro te espera para que lo confirmes. Nada se inventa."],
+    ["Hasta tu próximo ingreso", "Cuánto te queda de verdad, ya restado lo que viene."],
+    ["¿Me lo puedo permitir?", "Prueba una compra antes de hacerla y mira cómo queda tu mes."],
+    ["Growth MCP", "Conecta Claude, ChatGPT u otro asistente a tus finanzas, con los permisos que elijas."],
+    ["Espacios compartidos", "Casa, pareja o viaje: su gente, presupuesto, pagos fijos y metas."],
+    ["Quién debe a quién", "Divide por partes, montos o porcentajes, y salda con un toque."],
+    ["Pagos fijos y calendario", "Lo que se repite, a la vista y en tu calendario si lo pides."],
+    ["Presupuestos y metas", "Por categoría, por espacio y comparados con el mes pasado."],
+    ["En todas partes", "iPhone, iPad, Mac, Windows, Android y web. Una sola cuenta."],
+    ["Cifrado de extremo a extremo", "Solo tus dispositivos tienen la llave. Nosotros no vemos nada."],
     ["Face ID o código", "Bloquea la app. Growth nunca recibe datos biométricos."],
-    ["iCloud y Growth Sync", "Sincroniza entre tus dispositivos, con datos cifrados."],
-    ["Exportar a Excel y JSON", "Llévate tus datos cuando quieras."],
-    ["En la Mac, sin contraseñas", "Escaneas un código con tu teléfono y entras."],
+    ["Tus datos, tuyos", "Exporta a Excel o JSON cuando quieras, sin pedir permiso."],
+    ["Sin publicidad", "Sin analítica, sin anuncios, sin vender tu información. Nunca."],
   ];
   const list = document.querySelector("[data-all]");
   ALL.forEach(([t, d], i) => list.insertAdjacentHTML("beforeend",
