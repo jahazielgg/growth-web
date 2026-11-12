@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Growth</title>
+<style>
+@font-face{font-family:"Fraunces";src:url(fonts/fraunces.woff2) format("woff2");font-weight:100 900;font-display:block}
+@font-face{font-family:"Nunito";src:url(fonts/nunito.woff2) format("woff2");font-weight:200 1000;font-display:block}
+:root{--cream:#f6f1df;--cream-dim:rgba(246,241,223,.74);--lime:#c4f06a}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#0b2a1c;color:var(--cream);font:400 18px/1.5 "Nunito",ui-rounded,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+#scroll{height:640vh}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+
+.top{position:fixed;left:0;right:0;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;
+  padding:20px clamp(20px,4vw,56px)}
+.brand{display:flex;align-items:center;gap:11px;color:var(--cream);text-decoration:none;
+  font:600 24px/1 "Fraunces",serif;font-variation-settings:"SOFT" 100,"opsz" 48}
+.brand img{width:34px;height:34px;border-radius:10px;display:block}
+.top a.plain{color:var(--cream-dim);text-decoration:none;font-size:16px;font-weight:600}
+
+/* Capítulos: un bloque de texto por etapa de la planta */
+.ch{position:fixed;z-index:4;left:clamp(20px,4vw,56px);top:50%;width:min(560px,calc(100vw - 40px));
+  transform:translateY(-50%);opacity:0;pointer-events:none;will-change:opacity,transform,filter}
+.ch.on{pointer-events:auto}
+.ch h1,.ch h2{margin:0 0 20px;font:600 clamp(44px,6.6vw,96px)/1.0 "Fraunces",serif;
+  font-variation-settings:"SOFT" 100,"opsz" 144;color:var(--cream)}
+.ch h1 em,.ch h2 em{font-style:normal;color:var(--lime)}
+.ch p{margin:0;max-width:26em;font-size:clamp(17px,1.5vw,21px);color:var(--cream-dim)}
+.ch .eyebrow{display:block;margin:0 0 14px;font-size:15px;font-weight:700;color:var(--lime)}
+
+/* Insignias de descarga: el patrón estándar (negra, logo, «Descargar en la» + nombre) */
+.stores{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.badge{display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 20px 0 16px;border-radius:11px;
+  background:#000;color:#fff;text-decoration:none;border:1px solid #a6a6a6;
+  font-family:ui-rounded,"SF Pro Display","Nunito",system-ui,sans-serif}
+.badge svg{width:27px;height:27px;flex:none}
+.badge span{display:flex;flex-direction:column;line-height:1}
+.badge small{font-size:11.5px;font-weight:500;margin-bottom:3px}
+.badge b{font-size:23px;font-weight:600}
+.badge.soon{opacity:.5}
+
+.scrollhint{position:fixed;left:50%;bottom:22px;z-index:5;transform:translateX(-50%);font-size:14px;font-weight:700;
+  color:var(--cream-dim);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scrollhint i{width:1.5px;height:30px;background:var(--cream-dim);transform-origin:top}
+@media (max-width:760px){.ch{top:96px;transform:none}.ch h1,.ch h2{font-size:clamp(38px,11vw,56px)}}
+</style>
+</head>
+<body>
+<div id="scroll"></div>
+<canvas id="gl"></canvas>
+
+<div class="top">
+  <a class="brand" href="./"><img src="../assets/apple-touch-icon.png" alt="">Growth</a>
+  <a class="plain" href="../privacy/">Privacidad</a>
+</div>
+
+<section class="ch" data-c="0.04">
+  <h1>Cuánto tienes.<br>En qué se va.<br><em>Qué viene.</em></h1>
+  <p>Growth junta tus cuentas, anota tus movimientos y te cuenta cómo va tu mes. Sin Excel.</p>
+  <div class="stores">
+    <a class="badge soon" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg><span><small>Disponible pronto en</small><b>App Store</b></span></a>
+  </div>
+</section>
+
+<section class="ch" data-c="0.25">
+  <span class="eyebrow">Cuentas</span>
+  <h2>Soles, dólares y el efectivo del cajón.</h2>
+  <p>Cada cuenta con su saldo, cada moneda en su sitio. Nada se suma a escondidas con un tipo de cambio inventado.</p>
+</section>
+
+<section class="ch" data-c="0.46">
+  <span class="eyebrow">Lo que se repite</span>
+  <h2>Netflix, el día 15. <em>Solo.</em></h2>
+  <p>Lo declaras una vez. Growth lo anota cada mes y te avisa antes de que caiga.</p>
+</section>
+
+<section class="ch" data-c="0.67">
+  <span class="eyebrow">Metas</span>
+  <h2>Un viaje a Cusco tiene nombre y fecha.</h2>
+  <p>Ves cuánto llevas, cuánto falta y si el ritmo te alcanza. El avance es real, no una proyección optimista.</p>
+</section>
+
+<section class="ch" data-c="0.93">
+  <h2>Tu plata crece<br>cuando la <em>ves.</em></h2>
+  <p>Para iPhone y para Mac. Tus datos son tuyos y viajan cifrados.</p>
+  <div class="stores">
+    <a class="badge soon" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg><span><small>Disponible pronto en</small><b>App Store</b></span></a>
+    <a class="badge soon" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg><span><small>Descargar para</small><b>Mac</b></span></a>
+  </div>
+</section>
+
+<div class="scrollhint" id="hint"><span>Baja</span><i></i></div>
+
+<script type="module">
+import * as THREE from "./vendor/three.module.min.js";
+
+// ?p=0.5 congela el instante (grabación cuadro a cuadro); sin él, manda el scroll.
+const q = new URLSearchParams(location.search);
+const FIXED = q.has("p") ? parseFloat(q.get("p")) : null;
+const FIXT = q.has("t") ? parseFloat(q.get("t")) : null;
+const PLANT = q.get("v") !== "paisaje";   // ?v=paisaje: el viaje sin personaje
+
+const base_y_floor=-1.5;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const sm=(x,a,b)=>{const t=clamp((x-a)/(b-a));return t*t*(3-2*t);};
+const lerp=(a,b,t)=>a+(b-a)*t;
+// sobreimpulso suave: la planta «se pasa» un poco y asienta, como un juguete
+const pop=(x,a,b)=>{const t=clamp((x-a)/(b-a));if(t<=0)return 0;if(t>=1)return 1;const c=1.70158*1.1;return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2);};
+
+const canvas=document.getElementById("gl");
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,preserveDrawingBuffer:true});
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(30,1,.1,100);
+
+// ---------- cielo (degradado dibujado en una textura, cambia con el avance) ----------
+const skyC=document.createElement("canvas");skyC.width=8;skyC.height=256;const skyX=skyC.getContext("2d");
+const skyTex=new THREE.CanvasTexture(skyC);skyTex.colorSpace=THREE.SRGBColorSpace;scene.background=skyTex;
+const mix=(a,b,t)=>a.map((v,i)=>Math.round(lerp(v,b[i],t)));
+const rgb=c=>`rgb(${c[0]},${c[1]},${c[2]})`;
+function paintSky(p){
+  const top=mix([8,36,26],[38,112,84],sm(p,0,1)), mid=mix([14,58,40],[96,170,112],sm(p,0,1)), low=mix([22,84,52],[236,205,120],sm(p,.1,1));
+  const g=skyX.createLinearGradient(0,0,0,256);g.addColorStop(0,rgb(top));g.addColorStop(.55,rgb(mid));g.addColorStop(1,rgb(low));
+  skyX.fillStyle=g;skyX.fillRect(0,0,8,256);skyTex.needsUpdate=true;
+}
+
+// ---------- sol (esfera + halo) ----------
+function glowTexture(){const c=document.createElement("canvas");c.width=c.height=256;const x=c.getContext("2d");
+  const g=x.createRadialGradient(128,128,0,128,128,128);g.addColorStop(0,"rgba(255,214,120,.95)");g.addColorStop(.25,"rgba(255,190,90,.45)");g.addColorStop(1,"rgba(255,170,70,0)");
+  x.fillStyle=g;x.fillRect(0,0,256,256);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t;}
+const sun=new THREE.Mesh(new THREE.SphereGeometry(.62,48,32),new THREE.MeshBasicMaterial({color:0xffb347,fog:false}));
+const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTexture(),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
+halo.scale.set(5.2,5.2,1);halo.material.fog=false;sun.add(halo);scene.add(sun);
+
+// ---------- montañas: tres capas con niebla ----------
+function hash(n){return (Math.sin(n*127.1)*43758.5453)%1;}
+function noise1(x){const i=Math.floor(x),f=x-i,u=f*f*(3-2*f);const a=Math.abs(hash(i)),b=Math.abs(hash(i+1));return a+(b-a)*u;}
+function ridge(x,seed,f,a){let s=0,amp=1,fr=f;for(let o=0;o<4;o++){s+=amp*noise1(x*fr+seed);amp*=.5;fr*=2.1;}return a*s;}
+function mountain(z,seed,base,amp,freq,color,w=34){
+  const shape=new THREE.Shape();shape.moveTo(-w/2,-6);
+  const n=160;for(let i=0;i<=n;i++){const x=-w/2+w*i/n;shape.lineTo(x,base+ridge(x,seed,freq,amp));}
+  shape.lineTo(w/2,-6);shape.closePath();
+  const g=new THREE.ShapeGeometry(shape);const ps=g.attributes.position,cc=new Float32Array(ps.count*3),bc=new THREE.Color(color);
+  let lo=1e9,hi=-1e9;for(let i=0;i<ps.count;i++){lo=Math.min(lo,ps.getY(i));hi=Math.max(hi,ps.getY(i));}
+  for(let i=0;i<ps.count;i++){const t=clamp((ps.getY(i)-(base_y_floor))/(hi-(base_y_floor)));const k=.5+.62*Math.pow(t,1.2);cc.set([bc.r*k,bc.g*k,bc.b*k],i*3);}
+  g.setAttribute("color",new THREE.BufferAttribute(cc,3));
+  const m=new THREE.Mesh(g,new THREE.MeshBasicMaterial({vertexColors:true}));m.position.z=z;scene.add(m);return m;}
+const mBack=mountain(-14,3.1,.6,3.6,.22,0x2f7a55,60);
+const mMid=mountain(-9,8.4,-.2,2.8,.3,0x1f6140,50);
+const mFront=mountain(-5,14.2,-.7,1.9,.42,0x154a2f,40);
+
+// ---------- suelo y sombra de contacto ----------
+const ground=new THREE.Mesh(new THREE.CircleGeometry(9,64),new THREE.MeshStandardMaterial({color:0x143d28,roughness:1}));
+ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;scene.add(ground);
+
+// ---------- planta ----------
+const root=new THREE.Group();scene.add(root);
+const terracotta=new THREE.MeshStandardMaterial({color:0xcf7a46,roughness:.62});
+const potPts=[[.001,0],[.5,0],[.6,.035],[.78,.9],[.84,.96],[.98,1.0],[1.04,1.08],[1.02,1.18],[.92,1.21],[.86,1.16],[.8,1.1]];
+const spline=new THREE.SplineCurve(potPts.map(p=>new THREE.Vector2(p[0],p[1])));
+const pot=new THREE.Mesh(new THREE.LatheGeometry(spline.getPoints(60),64),terracotta);pot.castShadow=pot.receiveShadow=true;
+const potG=new THREE.Group();potG.add(pot);root.add(potG);
+const soil=new THREE.Mesh(new THREE.CircleGeometry(.84,48),new THREE.MeshStandardMaterial({color:0x3a2316,roughness:1}));
+soil.rotation.x=-Math.PI/2;soil.position.y=1.1;potG.add(soil);
+
+// cara
+const black=new THREE.MeshStandardMaterial({color:0x1b1411,roughness:.4});
+const eyes=[-1,1].map(s=>{const e=new THREE.Mesh(new THREE.SphereGeometry(.06,20,16),black);
+  const x=s*.27,r=.74,z=Math.sqrt(r*r-x*x)+.0;e.position.set(x,.58,z);e.scale.set(1,1.35,.55);e.rotation.y=Math.asin(x/r);potG.add(e);return e;});
+const smile=new THREE.Mesh(new THREE.TorusGeometry(.13,.019,10,32,Math.PI),black);
+smile.rotation.z=Math.PI;smile.position.set(0,.47,.735);smile.rotation.x=.12;potG.add(smile);
+const blushM=new THREE.MeshBasicMaterial({color:0xf29a9a,transparent:true,opacity:.78});
+[-1,1].forEach(s=>{const b=new THREE.Mesh(new THREE.CircleGeometry(.085,24),blushM);const x=s*.44,r=.745,z=Math.sqrt(r*r-x*x)+.01;
+  b.position.set(x,.5,z);b.rotation.y=Math.asin(x/r);b.scale.set(1,.72,1);potG.add(b);});
+
+// tallo / tronco
+const stemMat=new THREE.MeshStandardMaterial({color:0x76b84e,roughness:.6});
+const stemGeo=new THREE.CylinderGeometry(.045,.07,1,16);stemGeo.translate(0,.5,0);
+const stem=new THREE.Mesh(stemGeo,stemMat);stem.castShadow=true;stem.position.y=1.1;root.add(stem);
+
+// semilla
+const seed=new THREE.Mesh(new THREE.SphereGeometry(.1,20,14),new THREE.MeshStandardMaterial({color:0xd9ef8c,roughness:.5}));
+seed.scale.set(1,1.25,1);seed.position.y=1.17;root.add(seed);
+
+// hojas: 5 pares que nacen de arriba hacia abajo
+const leafGeo=new THREE.SphereGeometry(1,28,18);leafGeo.translate(0,1,0);
+const pairs=[];
+const pairCfg=[{a:.0,y:1.0,t:[.8,1.7],c:0xdcf28e},{a:.9,y:.74,t:[1.9,2.9],c:0xcdeb80},{a:1.8,y:.52,t:[2.9,3.9],c:0xa9d868},{a:2.7,y:.34,t:[3.7,4.5],c:0x8ac452},{a:3.6,y:.18,t:[4.3,5],c:0x72ae45}];
+pairCfg.forEach(cfg=>{const g=new THREE.Group();const mat=new THREE.MeshStandardMaterial({color:cfg.c,roughness:.55,side:THREE.DoubleSide});
+  const l=[-1,1].map(s=>{const m=new THREE.Mesh(leafGeo,mat);m.castShadow=true;const h=new THREE.Group();h.add(m);h.rotation.z=-s*1.0;g.add(h);return {m,h,s};});
+  g.rotation.y=cfg.a;root.add(g);pairs.push({g,cfg,l});});
+
+// copa del árbol
+const crown=new THREE.Group();root.add(crown);
+const crownMat=[0xdff08a,0xa9d266,0x95c85a,0xa0cd62,0x8ec054].map(c=>new THREE.MeshStandardMaterial({color:c,roughness:.6}));
+const crownCfg=[[0,.46,0,.66],[-.66,.1,.12,.5],[.68,.1,0,.52],[-.18,.08,.6,.5],[.2,.1,-.55,.5]];
+const crownM=crownCfg.map((c,i)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(c[3],36,24),crownMat[i]);m.position.set(c[0],c[1],c[2]);m.castShadow=true;crown.add(m);return m;});
+const branchMat=new THREE.MeshStandardMaterial({color:0x8a5a3a,roughness:.8});
+const brGeo=new THREE.CylinderGeometry(.03,.045,1,10);brGeo.translate(0,.5,0);
+const branches=[[-.5,.0],[.5,.0]].map(([x])=>{const b=new THREE.Mesh(brGeo,branchMat);b.rotation.z=-x*1.3;b.scale.y=.55;root.add(b);return b;});
+
+// flores y frutos sobre la copa
+function onCrown(i,theta,phi,off=1.0){const c=crownCfg[i],r=c[3]*off;return new THREE.Vector3(c[0]+r*Math.sin(phi)*Math.cos(theta),c[1]+r*Math.cos(phi),c[2]+r*Math.sin(phi)*Math.sin(theta));}
+const pinkM=new THREE.MeshStandardMaterial({color:0xf4a9c4,roughness:.5}),yelM=new THREE.MeshStandardMaterial({color:0xffc94a,roughness:.5}),redM=new THREE.MeshStandardMaterial({color:0xe8553a,roughness:.45});
+const bloomPts=[[0,.2,.9],[0,2.3,.5],[1,4,.9],[2,5,.9],[3,1.2,1],[4,3.4,.9],[1,2.6,.6],[3,2.6,.5]];
+const fruitPts=[[0,1.2,.8],[0,3.6,.7],[1,5.5,1],[2,2,.9],[3,4.5,.9],[4,1,.9],[2,3.6,.5],[4,5,.7]];
+const blooms=bloomPts.map(b=>{const g=new THREE.Group();const p=new THREE.Mesh(new THREE.SphereGeometry(.12,16,12),pinkM);p.scale.set(1,.55,1);const y=new THREE.Mesh(new THREE.SphereGeometry(.05,12,10),yelM);y.position.y=.045;g.add(p,y);
+  const pos=onCrown(b[0],b[1],b[2],1.02);g.position.copy(pos);g.lookAt(pos.clone().multiplyScalar(2));g.rotateX(Math.PI/2);crown.add(g);return g;});
+const fruits=fruitPts.map(b=>{const m=new THREE.Mesh(new THREE.SphereGeometry(.13,20,14),redM);m.castShadow=true;m.position.copy(onCrown(b[0],b[1],b[2],1.0));crown.add(m);return m;});
+
+// luces
+scene.add(new THREE.HemisphereLight(0xe8f8c8,0x1b3d28,1.0));
+const key=new THREE.DirectionalLight(0xffe0ae,2.6);key.castShadow=true;key.shadow.mapSize.set(2048,2048);
+key.shadow.camera.left=-5;key.shadow.camera.right=5;key.shadow.camera.top=7;key.shadow.camera.bottom=-3;key.shadow.bias=-.0004;key.shadow.radius=6;scene.add(key);
+const rim=new THREE.DirectionalLight(0x9be0b0,.9);rim.position.set(-4,3,-3);scene.add(rim);
+
+
+// ---------- versión sin personaje: un viaje por las colinas ----------
+let land=null;
+if(!PLANT){
+  root.visible=false;ground.visible=false;
+  mBack.position.set(0,-2.5,-110);mBack.scale.set(2.6,2.6,1);
+  mMid.position.set(0,-2.5,-84);mMid.scale.set(2.2,2.2,1);
+  mFront.position.set(0,-2.5,-62);mFront.scale.set(1.9,1.9,1);
+  scene.fog=new THREE.Fog(0x2a6a4a,40,330);
+  const pathX=z=>Math.sin(z*.085)*4.2+Math.sin(z*.031)*3;
+  const nz=(x,z)=>{let a=0,amp=1,f=1;for(let i=0;i<4;i++){a+=amp*noise1(x*.07*f+z*.05*f*1.3+i*9.1);amp*=.5;f*=2.1;}return a;};
+  const hgt=(x,z)=>{const d=Math.abs(x-pathX(z));const valley=sm(d,1.5,16);return 0.2*nz(x*1.7,z*1.7)+valley*(.5+2.1*nz(x,z+40))*(1-sm(-z,10,95)*.7);};
+  const geo=new THREE.PlaneGeometry(120,170,150,210);geo.rotateX(-Math.PI/2);geo.translate(0,0,-55);
+  const pos=geo.attributes.position,col=new Float32Array(pos.count*3),c1=new THREE.Color(0x1c5b36),c2=new THREE.Color(0x7bbd4c),c3=new THREE.Color(0x0f3b24),tmp=new THREE.Color();
+  for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i);const y=hgt(x,z);pos.setY(i,y);
+    const grain=noise1(x*9+z*7.3)*.5+noise1(x*23+z*19)*.5;
+    tmp.copy(c3).lerp(c1,clamp(y/3.2+.25)).lerp(c2,clamp(y/6-.1)*.8);tmp.multiplyScalar(.82+.36*grain);col.set([tmp.r,tmp.g,tmp.b],i*3);}
+  geo.setAttribute("color",new THREE.BufferAttribute(col,3));geo.computeVertexNormals();
+  const terrain=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({vertexColors:true,roughness:1}));terrain.receiveShadow=true;scene.add(terrain);
+
+  const pts=[];for(let z=10;z>=-110;z-=2.5){const x=pathX(z);pts.push(new THREE.Vector3(x,hgt(x,z)+.1,z));}
+  const curve=new THREE.CatmullRomCurve3(pts);
+  const SEG=520,RAD=8;
+  const core=new THREE.Mesh(new THREE.TubeGeometry(curve,SEG,.045,RAD,false),new THREE.MeshBasicMaterial({color:0xd9ff8a,fog:false}));
+  const glow=new THREE.Mesh(new THREE.TubeGeometry(curve,SEG,.2,RAD,false),new THREE.MeshBasicMaterial({color:0xa6e85a,transparent:true,opacity:.12,blending:THREE.AdditiveBlending,depthWrite:false,fog:false}));
+  scene.add(core,glow);
+  const head=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTexture(),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,color:0xd9ff8a}));head.scale.set(2.4,2.4,1);scene.add(head);
+
+  const N=420,ppos=new Float32Array(N*3),pseed=new Float32Array(N);
+  for(let i=0;i<N;i++){pseed[i]=Math.random();}
+  const pg=new THREE.BufferGeometry();pg.setAttribute("position",new THREE.BufferAttribute(ppos,3));
+  const dust=new THREE.Points(pg,new THREE.PointsMaterial({size:.16,map:glowTexture(),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,color:0xf6f1c8,opacity:.85,sizeAttenuation:true}));
+  dust.frustumCulled=false;scene.add(dust);
+  land={curve,core,glow,head,dust,ppos,pseed,SEG,RAD,pathX,hgt};
+}
+function updateLandscape(p,T){
+  paintSky(p);
+  const L=land,wide=innerWidth/innerHeight>1.05;
+  const sx=lerp(18,13,p),sy=lerp(-2,24,sm(p,0,.95));
+  sun.position.set(sx,sy,-118);sun.scale.setScalar(lerp(3.6,4.4,p));halo.material.opacity=lerp(.6,1,p);
+  key.position.set(26,lerp(6,30,p),-30);key.intensity=lerp(1.6,3.0,sm(p,0,.6));
+  scene.fog.color.setRGB(...(()=>{const c=mix([22,84,52],[236,205,120],sm(p,.1,1));const m2=mix([14,58,40],[96,170,112],sm(p,0,1));const f=mix(m2,c,.5);return f.map(v=>Math.pow(v/255,2.2));})());
+  // la cámara avanza por el camino; el camino se enciende por delante
+  const uc=lerp(.005,.43,p),ur=clamp(uc+.2+.02*Math.sin(T*1.2),0,1);
+  const P=L.curve.getPointAt(uc),Q=L.curve.getPointAt(Math.min(1,uc+.045));
+  const tan=Q.clone().sub(P).setY(0).normalize(),right=new THREE.Vector3().crossVectors(tan,new THREE.Vector3(0,1,0)).normalize();
+  camera.position.copy(P).addScaledVector(tan,-5.5).add(new THREE.Vector3(0,lerp(3.4,4.4,p)+Math.sin(T*.6)*.06,0));
+  const tgt=Q.clone().add(new THREE.Vector3(0,lerp(3.0,4.6,p),0));if(wide)tgt.addScaledVector(right,-3.4);
+  camera.lookAt(tgt);
+  const total=L.SEG*L.RAD*6,n=Math.floor(total*ur/6)*6;
+  L.core.geometry.setDrawRange(0,n);L.glow.geometry.setDrawRange(0,n);
+  L.head.position.copy(L.curve.getPointAt(Math.max(.001,ur-.002))).add(new THREE.Vector3(0,.15,0));
+  L.head.scale.setScalar(2.4+Math.sin(T*3)*.2);
+  // polvo: sube despacio alrededor del camino
+  for(let i=0;i<L.pseed.length;i++){const sd=L.pseed[i];const u=clamp(uc-.02+sd*.30);const B=L.curve.getPointAt(u);
+    const ang=sd*6283+T*(.1+sd*.2),rad=1.2+((sd*97)%1)*7;const rise=((T*.18*(.4+sd)+sd*10)%1);
+    L.ppos[i*3]=B.x+Math.cos(ang)*rad;L.ppos[i*3+1]=B.y+.2+rise*5.5;L.ppos[i*3+2]=B.z+Math.sin(ang)*rad;}
+  L.dust.geometry.attributes.position.needsUpdate=true;L.dust.material.opacity=.85;
+}
+
+// ---------- avance ----------
+function stemH(s){return s<1?lerp(0,.16,s):s<4.5?lerp(.16,1.1,(s-1)/3.5):lerp(1.1,1.72,sm(s,4.5,6.2));}
+function update(p,T){
+  if(!PLANT){updateLandscape(p,T);return;}
+  const s=clamp(p,0,1)*9;
+  paintSky(p);
+  // sol: amanece detrás de las montañas y sube
+  const sx=lerp(2.9,2.3,p),sy=lerp(-.35,3.5,sm(p,0,.95));sun.position.set(sx,sy,-12);sun.scale.setScalar(lerp(1,1.15,p));
+  halo.material.opacity=lerp(.6,1,p);
+  key.position.set(sx*1.2,lerp(2.5,7,p),5);key.intensity=lerp(1.5,3.0,sm(p,0,.6));
+  mBack.position.y=lerp(-.3,0,p);mMid.position.y=lerp(-.2,.05,p);
+
+  // la planta se acomoda a la derecha en pantallas anchas
+  const wide=innerWidth/innerHeight>1.05;
+  root.position.x=wide?lerp(2.35,2.1,p):0;
+  root.position.y=wide?-.15:-1.4+(0);
+  const sway=Math.sin(T*1.1)*.025*(.3+p),H=stemH(s);
+  // maceta: aterriza con un rebote al inicio
+  const land=pop(T<0?1:Math.min(T,2),0,1.1);
+  potG.scale.set(1+Math.sin(T*1.6)*.006,1-Math.sin(T*1.6)*.006,1);
+  potG.position.y=(1-clamp(land,0,1.3))*.9*(FIXED!==null?0:1);
+
+  // ojos: dormida en la semilla, despierta después, parpadea
+  const awake=sm(s,.55,1.0),blink=(Math.floor(T/3.3)>=0&&(T%3.3)<.13)?.1:1;
+  eyes.forEach(e=>e.scale.y=lerp(.14,1.35,awake)*(blink===1?1:.12/1.35*1.35)/(blink===1?1:1));
+  eyes.forEach(e=>{e.scale.y=lerp(.12,1.35,awake)*(blink<1&&awake>.5?.12:1);});
+  smile.scale.setScalar(lerp(.85,1,awake)+sm(s,8.4,9)*.2);
+
+  // tallo
+  stem.scale.set(lerp(1,2.1,sm(s,3,6.5)),Math.max(.001,H),lerp(1,2.1,sm(s,3,6.5)));
+  stem.material.color.setHex(0x76b84e).lerp(new THREE.Color(0x8a5a3a),sm(s,5,6.3));
+  stem.rotation.z=sway;
+  seed.visible=s<1.4;seed.scale.setScalar(lerp(1,0,sm(s,.7,1.4)));seed.position.y=1.1+.08+Math.sin(T*2)*.004;
+
+  // hojas
+  const leafOut=1-sm(s,5.2,6.6);
+  pairs.forEach((pr,k)=>{
+    const g=sm(s,pr.cfg.t[0],pr.cfg.t[1]),pp=pop(s,pr.cfg.t[0],pr.cfg.t[1]+.4);
+    const size=lerp(.0,.42+.045*s,clamp(pp,0,1.25))*leafOut*(1-.06*k);
+    const hy=1.1+H*pr.cfg.y;pr.g.position.set(Math.sin(stem.rotation.z)*-hy*.0,hy,0);
+    pr.g.visible=size>.002;
+    pr.l.forEach(({m,h,s:sd})=>{m.scale.set(size*.5,size,size*.13);h.rotation.z=-sd*lerp(1.25,.78,g)+Math.sin(T*1.3+k+sd)*.04;});
+  });
+
+  // copa, ramas
+  const cs=pop(s,5.3,7.0)*clamp(1,0,1);
+  const csc=clamp(cs,0,1.12);
+  crown.visible=csc>.003;crown.scale.setScalar(Math.max(.0001,csc));crown.position.y=1.1+H+.28*csc;
+  crown.rotation.z=sway*1.6;
+  branches.forEach((b,i)=>{b.visible=csc>.05;b.position.y=1.1+H*.62;b.scale.y=.55*clamp(csc,0,1)*H;b.scale.x=b.scale.z=clamp(csc,0,1);});
+  // flores → frutos
+  const bl=sm(s,7.3,8.2)*(1-sm(s,8.5,8.95)),fr=pop(s,8.7,9.0);
+  blooms.forEach((b,i)=>{b.scale.setScalar(Math.max(.0001,bl*(1+Math.sin(T*2+i)*.04)));b.visible=bl>.01;});
+  fruits.forEach((f,i)=>{f.scale.setScalar(Math.max(.0001,clamp(fr,0,1.15)));f.visible=fr>.01;});
+
+  // cámara: acompaña la altura
+  const ty=lerp(1.25,2.15,sm(s,1,6.5)),cz=lerp(8.6,12.2,sm(s,1,7));
+  camera.position.set(0,lerp(1.9,2.6,sm(s,1,7)),cz);camera.lookAt(wide?1.5:0,ty+(wide?0:.2),0);
+}
+
+// ---------- texto por capítulo ----------
+const chs=[...document.querySelectorAll(".ch")].map(el=>({el,c:parseFloat(el.dataset.c)}));
+function paintText(p){
+  chs.forEach((o,i)=>{
+    const d=p-o.c, first=i===0, last=i===chs.length-1;
+    const inK=first?1:sm(d,-.085,-.025), outK=last?1:1-sm(d,.025,.085);
+    const k=Math.min(inK,outK);
+    o.el.style.opacity=k.toFixed(3);o.el.style.filter=k<.995?`blur(${((1-k)*14).toFixed(1)}px)`:"none";
+    const wide=innerWidth>760;o.el.style.transform=wide?`translateY(calc(-50% + ${((d<0?1:-1)*(1-k)*34).toFixed(1)}px))`:`translateY(${((d<0?1:-1)*(1-k)*34).toFixed(1)}px)`;
+    o.el.classList.toggle("on",k>.6);
+  });
+  document.getElementById("hint").style.opacity=1-sm(p,.0,.05);
+}
+
+// ---------- bucle ----------
+let cur=0;
+function resize(){const dpr=Math.min(devicePixelRatio||1,2);renderer.setPixelRatio(dpr);renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth/innerHeight>1.05?30:46;camera.updateProjectionMatrix();}
+addEventListener("resize",resize);resize();
+function scrollP(){const m=document.documentElement.scrollHeight-innerHeight;return m>0?clamp(scrollY/m):0;}
+function tick(now){
+  const T=FIXT!==null?FIXT:now/1000;
+  const target=FIXED!==null?FIXED:scrollP();
+  cur=FIXED!==null?target:lerp(cur,target,.085);
+  update(cur,T);paintText(cur);renderer.render(scene,camera);
+  window.__ready=true;
+  if(FIXED===null)requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+window.__render=(p,T)=>{cur=p;update(p,T);paintText(p);renderer.render(scene,camera);};
+</script>
+</body>
+</html>
