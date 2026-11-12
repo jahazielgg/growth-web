@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Growth</title>
-<meta name="description" content="Growth anota lo que pagas y te dice cómo va tu mes. Para iPhone y Mac.">
+<title>Growth · ¿Me alcanza hasta que vuelva a cobrar?</title>
+<meta name="description" content="Growth te muestra cuánto te queda hasta tu próximo ingreso, qué pagos se acercan y en qué se va tu dinero. Para iPhone y Mac.">
 <meta name="theme-color" content="#b9f26b">
 <link rel="icon" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta property="og:title" content="Growth">
-<meta property="og:description" content="Growth anota lo que pagas y te dice cómo va tu mes. Para iPhone y Mac.">
+<meta property="og:title" content="Growth · ¿Me alcanza hasta que vuelva a cobrar?">
+<meta property="og:description" content="Cuánto te queda hasta tu próximo ingreso, qué pagos se acercan y en qué se va tu dinero. Para iPhone y Mac.">
 <meta property="og:image" content="assets/screens/insights.jpg">
 <script>if(matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("rm")</script>
 <link rel="stylesheet" href="assets/styles/landing.css">
@@ -18,24 +18,24 @@
 
 <div class="bar">
   <a class="pill brand" href="./"><img src="assets/apple-touch-icon.png" alt="">Growth</a>
-  <nav class="pill links"><a href="#funciones">Funciones</a><a href="#privacidad">Privacidad</a><a href="privacy/" class="soft">Política</a></nav>
+  <nav class="pill links"><a href="#todo">Funciones</a><a href="#privacidad">Privacidad</a></nav>
 </div>
 
-<!-- ESCENA 1 · Apertura: el mundo lima del logo, en tres planos -->
+<!-- HERO · Reconocimiento: la pregunta que el visitante ya se hace -->
 <header class="hero" id="hero">
   <i class="grain" aria-hidden="true"></i>
   <h1 class="hero-title" data-depth="-0.10">
-    <span class="ln"><span>Pagas con Apple&nbsp;Pay.</span></span>
-    <span class="ln"><span>Growth lo anota.</span></span>
+    <span class="ln"><span>¿Me alcanza hasta</span></span>
+    <span class="ln"><span>que vuelva a cobrar?</span></span>
   </h1>
   <div class="hero-phone" data-depth="0.06">
-    <img src="assets/screens/insights.jpg" alt="Growth en el iPhone: lo que gastaste este mes y lo que te queda hasta tu próximo ingreso" width="786" height="1704">
+    <img src="assets/screens/insights.jpg" alt="Growth en el iPhone: S/ 405.10 te quedan hasta tu próximo ingreso" width="786" height="1704">
   </div>
   <span class="tag tag-a" data-depth="-0.22"><b></b>S/ 405.10 te quedan</span>
   <span class="tag tag-b" data-depth="-0.32"><b></b>Netflix · en 3 días</span>
   <svg class="leaf" data-depth="-0.45" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 56C8 28 26 8 58 6c0 30-18 50-46 52z" fill="#2f6b3f"/><path d="M12 54C26 38 38 26 52 12" stroke="#b9f26b" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
   <div class="hero-foot">
-    <p class="lead">Ves cuánto te queda hasta tu próximo ingreso, en qué se te va el mes y qué pago viene. En tu iPhone y en tu Mac.</p>
+    <p class="lead">Growth te muestra cuánto te queda hasta tu próximo ingreso, qué pagos se acercan y en qué se va tu dinero. Sin convertir tus finanzas en otra tarea.</p>
     <div class="cta">
       <a class="btn btn-store soon" data-link="appStore" href="#">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
@@ -52,59 +52,110 @@
 
 <main class="sheet">
 
-  <!-- ESCENA 2 · Un mes en un scroll: el sueldo entra, los pagos se anotan solos, la cifra responde -->
-  <section class="month" id="mes" aria-label="Un mes en Growth">
-    <div class="month-stage">
-      <div class="m-left">
-        <span class="mono m-label" data-m-label>Este mes</span>
-        <div class="m-count"><small>S/</small><span data-m-count>2,500.00</span></div>
-        <div class="m-copy">
-          <div class="m-step" data-step="0"><span class="mono">01 · Entra tu ingreso</span><h2>Empiezas el mes con lo que ganas.</h2></div>
-          <div class="m-step" data-step="1"><span class="mono">02 · Pagas, Growth anota</span><h2>Con Apple&nbsp;Pay no abres nada. Ya está anotado.</h2></div>
-          <div class="m-step" data-step="2"><span class="mono">03 · Te dice cómo vas</span><h2>Cuánto te queda hasta tu próximo ingreso.</h2></div>
-        </div>
+  <!-- ESCENA 1 · Alivio: la compra fue en un segundo, anotarla también -->
+  <section class="scene relief" id="alivio" aria-labelledby="t1">
+    <div class="stage">
+      <div class="copy">
+        <span class="mono eyebrow">01 · Menos fricción</span>
+        <h2 id="t1">La compra fue en un segundo. Anotarla debería ser igual de fácil.</h2>
+        <p>Un café, un almuerzo, algo que querías. Con el atajo que configuras, Growth registra la compra por ti.</p>
       </div>
-      <div class="m-phone">
-        <div class="m-screen">
-          <img src="assets/screens/movements.jpg" alt="Movimientos del mes en Growth: sueldo, zapatillas, Netflix y almuerzo" width="786" height="1704" loading="lazy">
-          <img src="assets/screens/insights.jpg" alt="Lo que te queda hasta tu próximo ingreso y el pago que viene" width="786" height="1704" loading="lazy">
+      <div class="visual">
+        <div class="mv" aria-hidden="true">
+          <div class="notif" data-notif><i></i><div><span class="mono">Apple Pay</span><b>Almuerzo</b></div><em>S/ 18.50</em></div>
+          <div class="mv-card">
+            <div class="mv-head"><b>Movimientos</b><span class="mono">Hoy</span></div>
+            <div class="mv-list">
+              <div class="mv-row new" data-new><i class="dot a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-3 5-3 8h3v10"/></svg></i><div><b>Almuerzo</b><span>Comida · anotado</span></div><em>− S/ 18.50</em></div>
+              <div class="mv-row" data-row><i class="dot b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l1 12H5L6 8zM9 8V6a3 3 0 0 1 6 0v2"/></svg></i><div><b>Zapatillas</b><span>Compras</span></div><em>− S/ 120</em></div>
+              <div class="mv-row" data-row><i class="dot c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 11h18"/></svg></i><div><b>Sueldo</b><span>Ingreso</span></div><em class="plus">+ S/ 2,500</em></div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="notes" aria-hidden="true">
-        <div class="note-card" data-note><i></i><div><span class="mono">Apple Pay</span><b>Zapatillas</b></div><em>− S/ 120</em></div>
-        <div class="note-card" data-note><i></i><div><span class="mono">Apple Pay</span><b>Netflix</b></div><em>− S/ 44.90</em></div>
-        <div class="note-card" data-note><i></i><div><span class="mono">Apple Pay</span><b>Almuerzo</b></div><em>− S/ 18.50</em></div>
       </div>
     </div>
   </section>
 
-  <!-- ESCENA 3 · Todas las funciones: índice fijo + panel que cambia con el scroll -->
-  <section class="feat" id="funciones" aria-label="Funciones">
-    <div class="feat-stage">
-      <header class="feat-head"><span class="mono">Todo lo que hace</span><h2>Doce cosas, una app.</h2></header>
-      <ol class="feat-list" data-feat-list></ol>
-      <div class="feat-panels" data-feat-panels></div>
-      <span class="mono feat-count" data-feat-count>01 / 12</span>
+  <!-- ESCENA 2 · Revelación: el dato que antes no tenías -->
+  <section class="scene reveal" id="revelacion" aria-labelledby="t2">
+    <div class="stage">
+      <div class="copy">
+        <span class="mono eyebrow">02 · Claridad</span>
+        <h2 id="t2">Tu saldo cuenta una parte de la historia.</h2>
+        <p>Ya hiciste compras y todavía vienen pagos. Growth lo junta para que veas cuánto te queda hasta tu próximo ingreso.</p>
+        <div class="sim" aria-labelledby="simlabel">
+          <span class="mono" id="simlabel">Disponible hasta tu próximo ingreso</span>
+          <div class="sim-num"><small>S/</small><span data-sim-num aria-live="polite">405.10</span></div>
+          <div class="sim-next mono">Próximo pago · Netflix · en 3 días · S/ 44.90</div>
+          <div class="sim-chips" role="group" aria-label="Simula un gasto">
+            <button type="button" class="on" data-cost="0" aria-pressed="true">Sin gasto</button>
+            <button type="button" data-cost="12" aria-pressed="false">Café · S/ 12</button>
+            <button type="button" data-cost="85" aria-pressed="false">Salida · S/ 85</button>
+          </div>
+          <small class="sim-note">Ejemplo ilustrativo: muestra cómo cambia la cifra al registrar un gasto. No es una cuenta real.</small>
+        </div>
+      </div>
+      <div class="visual">
+        <div class="shot-phone" data-shot><img src="assets/screens/insights.jpg" alt="Growth: lo que te queda hasta tu próximo ingreso y el pago que viene" width="786" height="1704" loading="lazy"></div>
+      </div>
     </div>
-    <div class="feat-cards" data-feat-cards></div>
   </section>
 
-  <!-- ESCENA 4 · Manifiesto de privacidad -->
-  <section class="manifesto" id="privacidad" aria-label="Privacidad">
-    <div class="manifesto-stage">
-      <span class="mono">Tus datos son tuyos</span>
-      <p class="manifesto-text" id="manifesto">Tus movimientos viven en tus dispositivos. Si activas Growth Sync, viajan cifrados y nosotros no podemos leerlos.</p>
-      <ul class="facts mono">
-        <li>Sin publicidad</li><li>Sin analítica</li><li>No vendemos tu información</li><li>Español · English · Português</li>
-      </ul>
+  <!-- ESCENA 3 · La casa: en qué se va la plata de todos -->
+  <section class="scene home" id="casa" aria-labelledby="t3">
+    <div class="stage">
+      <div class="copy">
+        <span class="mono eyebrow">03 · En casa</span>
+        <h2 id="t3">La plata de la casa también cuenta.</h2>
+        <p>La comida, los servicios, lo de todos. Que cada quien vea en qué se va, sin tener que preguntar ni acordarse.</p>
+      </div>
+      <div class="visual">
+        <div class="home-card" aria-hidden="true">
+          <div class="home-head"><b>Casa</b><span class="mono">Este mes</span></div>
+          <div class="home-total"><small>S/</small><span data-home-total>0.00</span></div>
+          <div class="home-bars">
+            <div class="hb"><span>Comida</span><div class="hb-t"><i style="--w:72%"></i></div><em>S/ 640</em></div>
+            <div class="hb"><span>Servicios</span><div class="hb-t"><i style="--w:44%"></i></div><em>S/ 392</em></div>
+            <div class="hb"><span>Transporte</span><div class="hb-t"><i style="--w:22%"></i></div><em>S/ 196</em></div>
+          </div>
+          <div class="home-feed">
+            <div class="hf" data-hf><i class="av a">M</i><div><b>Mercado</b><span>Mamá · Comida</span></div><em>− S/ 86.20</em></div>
+            <div class="hf" data-hf><i class="av b">T</i><div><b>Luz</b><span>Tú · Servicios</span></div><em>− S/ 120.00</em></div>
+            <div class="hf" data-hf><i class="av c">A</i><div><b>Pan y frutas</b><span>Ana · Comida</span></div><em>− S/ 24.50</em></div>
+          </div>
+          <small class="sim-note">Ejemplo ilustrativo.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIANZA · Privacidad como tranquilidad -->
+  <section class="trust" id="privacidad" aria-label="Privacidad">
+    <div class="trust-stage">
+      <span class="mono eyebrow">Tus datos son tuyos</span>
+      <p class="trust-text" id="trust">Tus finanzas son personales. Que sigan siéndolo.</p>
+      <div class="trust-cols">
+        <div><span class="mono">Se guarda</span><p>En tu dispositivo: tus movimientos, cuentas, pagos fijos, categorías, metas y presupuestos.</p></div>
+        <div><span class="mono">Se sincroniza</span><p>Solo si lo activas, con iCloud o Growth Sync, y viaja cifrado.</p></div>
+        <div><span class="mono">No podemos leer</span><p>Con Growth Sync, tus datos se cifran en tu dispositivo antes de salir. Nosotros no vemos nada.</p></div>
+      </div>
+      <ul class="facts mono"><li>Sin publicidad</li><li>Sin analítica</li><li>No vendemos tu información</li></ul>
       <a class="more mono" href="privacy/">Leer la política de privacidad →</a>
     </div>
   </section>
 
-  <!-- ESCENA 5 · Cierre: vuelve el lima -->
+  <!-- Todo lo que tienes: las funciones, en segundo plano -->
+  <section class="all" id="todo" aria-labelledby="t4">
+    <span class="mono eyebrow">Para cuando ya estás convencido</span>
+    <h2 id="t4">Todo lo que tienes con Growth.</h2>
+    <ul class="all-grid" data-all></ul>
+    <p class="langs mono">Español · English · Português · iPhone y Mac</p>
+  </section>
+
+  <!-- CIERRE · Acción -->
   <section class="close">
     <i class="grain" aria-hidden="true"></i>
-    <h2 class="close-title"><span class="ln"><span>Tu mes,</span></span><span class="ln"><span>a la vista.</span></span></h2>
+    <h2 class="close-title"><span class="ln"><span>Deja de adivinar</span></span><span class="ln"><span>cómo va tu mes.</span></span></h2>
     <div class="cta">
       <a class="btn btn-store soon" data-link="appStore" href="#">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
