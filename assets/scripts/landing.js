@@ -86,16 +86,76 @@
     scrollTrigger: { trigger, start: "top top", end: trigger === ".seed" ? "bottom bottom" : "bottom 200%", scrub: 0.6, ...extra },
   });
 
-  /* EL MAZO · la escena que se va sube un poco más lento mientras la siguiente la cubre; los colores no se mezclan */
+  /* ENTRE ESCENAS · cada una entra a su manera, desde donde tiene sentido (adaptado de agent-skills/references/interlude).
+     La escena nueva queda fija en pantalla mientras su recorte se abre; la anterior espera quieta debajo. */
   {
-    const scenes = [$(".hero"), ...$$("main > section")];
-    for (let i = 1; i < scenes.length; i++) {
-      const prev = i === 1 ? scenes[0] : scenes[i - 1].querySelector(".pin");
-      gsap.to(prev, {
-        y: () => -innerHeight * 0.12, ease: "none",
-        scrollTrigger: { trigger: scenes[i], start: "top bottom", end: "top top", scrub: true },
+    document.documentElement.classList.add("mx");
+    const C = { lime: "#cdf27a", leaf: "#4f8a62", mint: "#93cc9a", night: "#0f3d27" };
+    const veil = (sec, color, extra = {}) => {
+      const v = document.createElement("div");
+      v.className = "veil"; v.setAttribute("aria-hidden", "true");
+      Object.assign(v.style, { background: color }, extra);
+      sec.insertBefore(v, sec.querySelector(".pin"));
+      return v;
+    };
+    const CORNER = "inset(0% 100% 100% 0%)", FULL = "inset(0% 0% 0% 0%)";
+    const enter = {
+      // Hero → Captura: un iris que se abre justo donde aparecerá el teléfono; un anillo lima va adelante.
+      capture(sec, pin, tl) {
+        const ring = veil(sec, C.lime);
+        tl.fromTo(ring, { clipPath: "circle(0% at 50% 56%)" }, { clipPath: "circle(80% at 50% 56%)", ease: "power2.in", duration: 1 }, 0)
+          .fromTo(pin, { clipPath: "circle(0% at 50% 56%)" }, { clipPath: "circle(80% at 50% 56%)", ease: "power2.in", duration: 1 }, 0.12);
+      },
+      // Captura → ¿Me alcanza?: columnas lima que suben como barras, una tras otra; luego llega el contenido.
+      flow(sec, pin, tl) {
+        const n = innerWidth < 768 ? 3 : 5;
+        const bars = Array.from({ length: n }, (_, i) => veil(sec, C.lime, {
+          clipPath: `inset(100% ${100 - ((i + 1) / n) * 100}% 0% ${(i / n) * 100}%)`,
+        }));
+        bars.forEach((bar, i) => {
+          const l = (i / n) * 100, r = 100 - ((i + 1) / n) * 100 - 0.2;
+          tl.fromTo(bar, { clipPath: `inset(100% ${r}% 0% ${l}%)` }, { clipPath: `inset(0% ${r}% 0% ${l}%)`, ease: "power2.out", duration: 0.7 }, i * 0.09);
+        });
+        tl.fromTo(pin, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: FULL, ease: "power2.out", duration: 0.5 }, 0.75);
+      },
+      // ¿Me alcanza? → Asistente: como una ventana que se abre desde la esquina; hoja, noche y la escena, a destiempo.
+      mcp(sec, pin, tl) {
+        const a = veil(sec, C.leaf), b = veil(sec, C.night);
+        [a, b, pin].forEach((el, i) => tl.fromTo(el, { clipPath: CORNER }, { clipPath: FULL, ease: "expo.inOut", duration: 1 }, i * 0.14));
+      },
+      // Asistente → La casa: la carta sube sobre el mazo; la anterior se queda un poco atrás.
+      spaces(sec, pin, tl, prevPin) {
+        tl.fromTo(prevPin, { y: 0 }, { y: () => -innerHeight * 0.12, ease: "none", duration: 1, immediateRender: false }, 0);
+        return "slide";
+      },
+      // La casa → Mac: un visor que crece desde el centro, como el que escanea el código; un borde lima lo adelanta.
+      devices(sec, pin, tl) {
+        const frame = veil(sec, C.lime);
+        const from = "inset(40% 36% 40% 36% round 36px)", to = "inset(0% 0% 0% 0% round 0px)";
+        tl.fromTo(frame, { clipPath: from }, { clipPath: to, ease: "power3.inOut", duration: 1 }, 0)
+          .fromTo(pin, { clipPath: "inset(41% 37% 41% 37% round 32px)" }, { clipPath: to, ease: "power3.inOut", duration: 1 }, 0.1);
+      },
+      // Mac → Semilla: amanece desde abajo, de donde brota la planta.
+      seed(sec, pin, tl) {
+        const glow = veil(sec, C.leaf);
+        tl.fromTo(glow, { clipPath: "circle(0% at 50% 100%)" }, { clipPath: "circle(120% at 50% 100%)", ease: "power2.inOut", duration: 1 }, 0)
+          .fromTo(pin, { clipPath: "circle(0% at 50% 100%)" }, { clipPath: "circle(120% at 50% 100%)", ease: "power2.inOut", duration: 1 }, 0.15);
+      },
+    };
+    const sections = $$("main > section");
+    sections.forEach((sec, i) => {
+      const pin = sec.querySelector(".pin");
+      const prevPin = i === 0 ? $(".hero") : sections[i - 1].querySelector(".pin");
+      const tl = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: { trigger: sec, start: "top bottom", end: "top top", scrub: true, invalidateOnRefresh: true },
       });
-    }
+      const kind = enter[sec.classList[0]]?.(sec, pin, tl, prevPin);
+      if (kind === "slide") return;
+      // Mientras la sección sube, su escena (y sus velos) bajan lo mismo: quedan quietos en pantalla mientras el recorte se abre.
+      const still = [...sec.querySelectorAll(":scope > .veil"), pin];
+      tl.fromTo(still, { y: () => -innerHeight }, { y: 0, ease: "none", duration: tl.duration() || 1 }, 0);
+    });
   }
 
   /* HERO · Grow despierta; el mazo lima sube desde el borde, como en Inicio */
@@ -112,12 +172,10 @@
   /* 1 · CAPTURA · tres pagos, tres orígenes; el último pide confirmación */
   {
     const sources = $$(".sources li");
-    gsap.set(".lock", { y: 60, opacity: 0 });
     gsap.set(notes, { opacity: 0, y: -24, scale: 0.96 });
     const tl = scrub(".capture", {
       onUpdate: (st) => sources.forEach((s, k) => s.classList.toggle("on", st.progress > 0.18 + k * 0.24)),
-    }).to({}, { duration: 10 })
-      .to(".lock", { y: 0, opacity: 1, duration: 1.2, ease: "expo.out" }, 0);
+    }).to({}, { duration: 10 });
     notes.forEach((n, k) => tl.to(n, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "expo.out" }, 1.6 + k * 2.4));
   }
 
