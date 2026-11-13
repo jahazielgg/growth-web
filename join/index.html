@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Growth · Invitación</title>
+<link rel="icon" href="../assets/favicon.png">
+<style>
+:root{color-scheme:light dark;--bg:#f6f7f1;--ink:#14281d;--muted:#5a6a60;--accent:#17482f}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1f16;--ink:#eef3ea;--muted:#a3b3a8;--accent:#c9f25d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+main{max-width:520px;margin:0 auto;padding:72px 20px}
+h1{font-size:34px;line-height:1.15;letter-spacing:-.02em;margin:0 0 12px}
+p{margin:0 0 12px;color:var(--muted)}
+.button{display:inline-block;background:var(--accent);color:var(--bg);text-decoration:none;font-weight:600;padding:14px 22px;border-radius:999px;margin-top:16px}
+</style>
+</head>
+<body>
+<main>
+<h1 id="title">Te invitaron a un grupo en Growth</h1>
+<p id="lead">Ábrelo en Growth para unirte. Cada uno anota con su tarjeta; todos ven lo que costó.</p>
+<a class="button" id="open" href="#">Abrir en Growth</a>
+</main>
+<script>
+(() => {
+  // La clave del grupo viene en el fragmento (#): no sale de este teléfono.
+  const en = !navigator.language.toLowerCase().startsWith("es");
+  const fragment = location.hash.slice(1);
+  const params = new URLSearchParams(fragment);
+  const name = (params.get("n") || "").slice(0, 64);
+  const open = document.getElementById("open");
+  document.getElementById("title").textContent = name
+    ? (en ? `You're invited to ${name} on Growth` : `Te invitaron a ${name} en Growth`)
+    : (en ? "You're invited to a group on Growth" : "Te invitaron a un grupo en Growth");
+  document.getElementById("lead").textContent = en
+    ? "Open it in Growth to join. Everyone logs with their own card; everyone sees what it cost."
+    : "Ábrelo en Growth para unirte. Cada uno anota con su tarjeta; todos ven lo que costó.";
+  open.textContent = en ? "Open in Growth" : "Abrir en Growth";
+  if (!params.get("s") || !params.get("k")) { open.style.display = "none"; return; }
+  const link = `growth://join?${fragment}`;
+  open.href = link;
+  history.replaceState(null, "", location.pathname);
+  location.href = link;
+})();
+</script>
+</body>
+</html>
