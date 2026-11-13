@@ -3,274 +3,331 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Growth · Tu dinero, por fin en calma</title>
-<meta name="description" content="Growth anota tus gastos solo, te dice cuánto te queda hasta tu próximo ingreso y le responde a tu asistente de IA. En iPhone, Mac, Windows, Android y la web, cifrado de extremo a extremo.">
-<meta name="theme-color" content="#b9f26b">
+<title>Growth | Automatiza tu vida financiera</title>
+<meta name="description" content="Growth anota tus pagos solo, te dice cuánto te queda hasta tu próximo ingreso y responde a Claude o ChatGPT con tus números. En tu teléfono y tu computadora, cifrado de extremo a extremo.">
+<meta name="theme-color" content="#0f3d27">
 <link rel="icon" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta property="og:title" content="Growth · Tu dinero, por fin en calma">
-<meta property="og:description" content="Anota solo, te dice cuánto te queda y le responde a tu asistente. En todos tus dispositivos, cifrado de extremo a extremo.">
+<meta property="og:title" content="Growth | Automatiza tu vida financiera">
+<meta property="og:description" content="Tus pagos se anotan solos y sabes cuánto te queda hasta tu próximo ingreso.">
 <meta property="og:image" content="assets/screens/insights.jpg">
+<link rel="preload" href="assets/fonts/ZTNature-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/ZTNature-Black.ttf" as="font" type="font/ttf" crossorigin>
 <script>if(matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("rm")</script>
 <link rel="stylesheet" href="assets/styles/landing.css">
 </head>
 <body>
 
-<div class="bar">
-  <a class="pill brand" href="./"><img src="assets/apple-touch-icon.png" alt="">Growth</a>
-  <nav class="pill links"><a class="soft" href="#mcp">Asistente</a><a class="soft" href="#espacios">Espacios</a><a href="#cifrado">Privacidad</a></nav>
+<div class="top">
+  <a class="brand" href="./"><img src="assets/apple-touch-icon.png" alt="">Growth</a>
+  <a class="top-get" href="#descargar">Descargar</a>
 </div>
 
-<!-- HERO · la promesa: calma -->
+<!-- HERO · la noche de Grow: el mundo de la app, no una portada genérica -->
 <header class="hero" id="hero">
-  <i class="grain" aria-hidden="true"></i>
-  <h1 class="hero-title" data-depth="-0.10">
-    <span class="ln"><span>Tu dinero,</span></span>
-    <span class="ln"><span>por fin en calma.</span></span>
-  </h1>
-  <div class="hero-phone" data-depth="0.06">
-    <img src="assets/screens/insights.jpg" alt="Growth en el iPhone: S/ 405.10 te quedan hasta tu próximo ingreso" width="786" height="1704">
+  <div class="sky" aria-hidden="true">
+    <i class="star" style="--x:12%;--y:18%"></i><i class="star" style="--x:31%;--y:9%"></i><i class="star" style="--x:47%;--y:24%"></i>
+    <i class="star" style="--x:71%;--y:12%"></i><i class="star" style="--x:88%;--y:30%"></i><i class="star" style="--x:58%;--y:6%"></i>
   </div>
-  <span class="tag tag-a" data-depth="-0.22"><b></b>S/ 405.10 hasta el día 30</span>
-  <span class="tag tag-b" data-depth="-0.32"><b></b>Almuerzo · anotado solo</span>
-  <span class="tag tag-c" data-depth="-0.18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Cifrado de extremo a extremo</span>
-  <svg class="leaf" data-depth="-0.45" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 56C8 28 26 8 58 6c0 30-18 50-46 52z" fill="#2f6b3f"/><path d="M12 54C26 38 38 26 52 12" stroke="#b9f26b" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
-  <div class="hero-foot">
-    <p class="lead">Growth anota por ti, te dice cuánto te queda de verdad y le responde a tu asistente. En todos tus dispositivos. Legible solo para ti.</p>
-    <div class="cta">
-      <a class="btn btn-store soon" data-link="appStore" href="#">
+  <svg class="hills hills-back" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true"><path d="M0 210C180 150 330 120 520 150s360 110 560 70 280-90 360-110V400H0z" fill="#174a32"/></svg>
+  <i class="moon" aria-hidden="true"></i>
+  <div class="grow-hero" aria-hidden="true"><img src="assets/grow/night.png" alt="" width="640" height="680"></div>
+  <svg class="hills hills-front" viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true"><path d="M0 120C240 60 470 70 700 110s470 70 740 10V300H0z" fill="#1a4332"/></svg>
+
+  <div class="hero-copy">
+    <h1><span class="ln"><span>Automatiza</span></span><span class="ln"><span>tu vida <em>financiera</em></span></span></h1>
+    <p>Tus pagos se anotan solos y siempre sabes cuánto te queda hasta tu próximo ingreso.</p>
+    <div class="badges">
+      <a class="badge soon" data-link="appStore" href="#">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
-        <span data-label>Muy pronto en el App Store</span>
+        <span><small data-small="Descárgalo en el">Muy pronto en el</small><b>App Store</b></span>
       </a>
-      <a class="btn btn-ghost" href="#todas-partes">Todas las plataformas</a>
+      <a class="badge soon" data-link="mac" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
+        <span><small data-small="Descárgalo para">Muy pronto para</small><b>Mac</b></span>
+      </a>
     </div>
   </div>
-  <span class="cue mono" aria-hidden="true">Scroll <i></i></span>
+
 </header>
 
-<main class="sheet">
+<main>
 
-  <!-- MANIFIESTO · el giro: la app trabaja, tú vives -->
-  <section class="manifesto" aria-label="Manifiesto">
-    <div class="manifesto-stage">
-      <span class="mono eyebrow">Lo que cambia</span>
-      <p class="big-words" data-words data-accent="4">Las demás apps te piden que anotes, ordenes y revises. Growth hace al revés: trabaja mientras tú vives.</p>
-    </div>
-  </section>
-
-  <!-- 01 · Captura sola -->
-  <section class="scene capture" id="captura" aria-labelledby="t1">
-    <div class="stage">
-      <div class="copy">
-        <span class="mono eyebrow">01 · Captura sola</span>
-        <h2 id="t1">No anotas nada. Growth ya lo sabe.</h2>
-        <p>Pagas con el iPhone, te llega el aviso del banco, compras desde tu Android. Growth lo convierte en movimientos, con su categoría y su cuenta. Lo dudoso te espera en Pendientes: nada se inventa.</p>
-      </div>
-      <div class="visual">
-        <div class="mv" aria-hidden="true">
-          <div class="notifs">
-            <div class="notif" data-notif><i class="src a"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg></i><div><span class="mono">Apple Pay</span><b>Café del barrio</b></div><em>S/ 12.00</em></div>
-            <div class="notif" data-notif><i class="src b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 10v9M15 10v9M3 21h18"/></svg></i><div><span class="mono">Aviso de tu banco</span><b>Compra aprobada · Farmacia</b></div><em>S/ 36.40</em></div>
-            <div class="notif" data-notif><i class="src c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></i><div><span class="mono">Android · Google Wallet</span><b>Almuerzo</b></div><em>S/ 18.50</em></div>
-          </div>
-          <div class="mv-card">
-            <div class="mv-head"><b>Movimientos</b><span class="mono">Hoy · sin tocar nada</span></div>
-            <div class="mv-list">
-              <div class="mv-row new" data-cap="2"><i class="dot a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-3 5-3 8h3v10"/></svg></i><div><b>Almuerzo</b><span>Comida · anotado solo</span></div><em>− S/ 18.50</em></div>
-              <div class="mv-row" data-cap="1"><i class="dot b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7z"/></svg></i><div><b>Farmacia</b><span>Salud · anotado solo</span></div><em>− S/ 36.40</em></div>
-              <div class="mv-row" data-cap="0"><i class="dot c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6V9zM17 11h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/></svg></i><div><b>Café del barrio</b><span>Salidas · anotado solo</span></div><em>− S/ 12.00</em></div>
-              <div class="mv-row" data-cap="-1"><i class="dot d"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 11h18"/></svg></i><div><b>Sueldo</b><span>Ingreso</span></div><em class="plus">+ S/ 2,500</em></div>
+  <!-- 1 · Captura: la pantalla de bloqueo, donde de verdad pasa -->
+  <section class="capture" id="captura" aria-labelledby="t-capture">
+    <div class="pin">
+      <h2 id="t-capture" class="capture-title">Anotar un gasto toma <em>un segundo.</em></h2>
+      <div class="lock" aria-hidden="true">
+        <div class="lock-screen">
+          <div class="lock-time"><span>martes 12 de noviembre</span><b>12:41</b></div>
+          <div class="stack">
+            <div class="note" data-note="0">
+              <img src="assets/apple-touch-icon.png" alt="">
+              <div><p><b>Growth</b><time>ahora</time></p><span>US$ 4.50 en el café de la esquina</span><small>Con Apple Pay. Lo anoté en Comida.</small></div>
+            </div>
+            <div class="note" data-note="1">
+              <img src="assets/apple-touch-icon.png" alt="">
+              <div><p><b>Growth</b><time>ahora</time></p><span>US$ 12.30 en la farmacia</span><small>Lo anotaste con el botón de acción.</small></div>
+            </div>
+            <div class="note" data-note="2">
+              <img src="assets/apple-touch-icon.png" alt="">
+              <div><p><b>Growth</b><time>ahora</time></p><span>US$ 8.00 en taxi</span><small>Se lo dijiste a Siri. Lo anoté en Efectivo.</small></div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- 02 · ¿Me alcanza? -->
-  <section class="scene runway" id="alcanza" aria-labelledby="t2">
-    <div class="stage">
-      <div class="copy">
-        <span class="mono eyebrow">02 · Lo que de verdad te queda</span>
-        <h2 id="t2">Tu saldo te miente un poco.</h2>
-        <p>Growth resta lo que ya viene, el alquiler, la cuota, Netflix, y te dice cuánto te queda hasta que vuelvas a cobrar. Antes de comprar, pregúntale.</p>
-        <div class="sim" aria-labelledby="simlabel">
-          <span class="mono" id="simlabel">¿Me lo puedo permitir?</span>
-          <div class="sim-num"><small>S/</small><span data-sim-num aria-live="polite">405.10</span></div>
-          <div class="sim-verdict" data-verdict aria-live="polite">Te quedan 18 días hasta tu próximo ingreso.</div>
-          <div class="sim-chips" role="group" aria-label="Simula una compra">
-            <button type="button" class="on" data-cost="0" data-say="Te quedan 18 días hasta tu próximo ingreso." aria-pressed="true">Nada</button>
-            <button type="button" data-cost="12" data-say="Sin problema. Ni lo vas a notar." aria-pressed="false">Café · S/ 12</button>
-            <button type="button" data-cost="180" data-say="Sí, pero justo: S/ 12 al día hasta el 30." aria-pressed="false">Concierto · S/ 180</button>
-            <button type="button" data-cost="460" data-say="Hoy no. Te faltarían S/ 54.90 antes de cobrar." aria-pressed="false">Zapatillas · S/ 460</button>
-          </div>
-          <div class="timeline" aria-hidden="true">
-            <div class="tl-track"><i class="tl-fill" data-tl-fill></i></div>
-            <span class="tl-pt" style="--x:0%"><b>Hoy</b></span>
-            <span class="tl-pt pay" style="--x:24%"><b>Netflix</b></span>
-            <span class="tl-pt pay" style="--x:44%"><b>Cuota</b></span>
-            <span class="tl-pt pay" style="--x:72%"><b>Luz</b></span>
-            <span class="tl-pt in" style="--x:100%"><b>Cobras</b></span>
-          </div>
-          <small class="sim-note">Ejemplo ilustrativo, no es una cuenta real.</small>
-        </div>
-      </div>
-      <div class="visual">
-        <div class="shot-phone" data-shot><img src="assets/screens/insights.jpg" alt="Growth: lo que te queda hasta tu próximo ingreso y el pago que viene" width="786" height="1704" loading="lazy"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 03 · Growth MCP -->
-  <section class="scene mcp" id="mcp" aria-labelledby="t3">
-    <div class="stage">
-      <div class="copy">
-        <span class="mono eyebrow">03 · Growth MCP</span>
-        <h2 id="t3">Tu asistente, por fin, entiende tu plata.</h2>
-        <p>Conecta Growth a Claude, ChatGPT o el asistente que uses, con un servidor MCP de finanzas personales. Pregúntale como le preguntarías a un amigo que sabe de números. Tú decides qué puede ver y qué puede hacer, y lo desconectas con un toque.</p>
-        <ul class="scopes mono" aria-label="Permisos del asistente">
-          <li class="ok">Leer movimientos</li>
-          <li class="ok">Registrar gastos</li>
-          <li class="ok">Crear metas</li>
-          <li class="no">Ver espacios compartidos</li>
-        </ul>
-      </div>
-      <div class="visual">
-        <div class="chat" aria-hidden="true">
-          <div class="chat-head"><i></i><b>Asistente</b><span class="mono">Growth conectado</span></div>
-          <div class="chat-body">
-            <div class="msg me" data-msg>¿Me alcanza para el concierto del 14? La entrada cuesta S/ 180.</div>
-            <div class="tools" data-msg>
-              <span class="tool"><i></i>growth · hasta_proximo_ingreso</span>
-              <span class="tool"><i></i>growth · pagos_proximos</span>
-            </div>
-            <div class="msg ai" data-msg>Sí, pero justo. Te quedarían <b>S/ 225</b> hasta el 30, y el 20 vence tu cuota de S/ 150. Si te mantienes en <b>S/ 12 al día</b> en comida, llegas con aire.</div>
-            <div class="msg ai" data-msg>¿Te creo una meta de S/ 180 para el 14?</div>
-            <div class="msg me" data-msg>Dale.</div>
-            <div class="tools" data-msg><span class="tool done"><i></i>growth · crear_meta · Concierto</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 04 · Espacios -->
-  <section class="scene spaces" id="espacios" aria-labelledby="t4">
-    <div class="stage">
-      <div class="copy">
-        <span class="mono eyebrow">04 · Espacios</span>
-        <h2 id="t4">Una casa no es una tarjeta compartida.</h2>
-        <p>Crea un espacio para la casa, para la pareja o para el viaje a Cusco. Cada uno con su gente, su presupuesto, sus pagos fijos y sus metas. Growth lleva quién pagó qué y cuánto se deben, para que nadie tenga que cobrarle a nadie.</p>
-      </div>
-      <div class="visual">
-        <div class="deck" aria-hidden="true">
-          <article class="space s3" data-space>
-            <header><b>Cusco 2027</b><span class="mono">Viaje · 4</span></header>
-            <div class="sp-goal"><span>Meta del grupo</span><div class="hb-t"><i style="--w:62%"></i></div><em>S/ 3,100 de 5,000</em></div>
-          </article>
-          <article class="space s2" data-space>
-            <header><b>Nosotros</b><span class="mono">Pareja · 2</span></header>
-            <div class="sp-goal"><span>Fondo de emergencia</span><div class="hb-t"><i style="--w:38%"></i></div><em>S/ 1,900 de 5,000</em></div>
-          </article>
-          <article class="space s1" data-space>
-            <header><b>Casa</b><span class="mono">Este mes</span></header>
-            <div class="sp-people"><i class="av a">M</i><i class="av b">T</i><i class="av c">A</i><span>Mamá, tú y Ana</span></div>
-            <div class="sp-total"><small>S/</small><span data-home-total>1,228.00</span><em>de S/ 1,600</em></div>
-            <div class="home-bars">
-              <div class="hb"><span>Comida</span><div class="hb-t"><i style="--w:72%"></i></div><em>S/ 640</em></div>
-              <div class="hb"><span>Servicios</span><div class="hb-t"><i style="--w:44%"></i></div><em>S/ 392</em></div>
-              <div class="hb"><span>Transporte</span><div class="hb-t"><i style="--w:22%"></i></div><em>S/ 196</em></div>
-            </div>
-            <div class="settle"><span>Ana te debe</span><b>S/ 42.30</b><em>Saldar</em></div>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05 · En todas partes, cifrado (momento firma) -->
-  <section class="e2e" id="cifrado" aria-labelledby="t5">
-    <div class="e2e-stage">
-      <div class="e2e-copy" id="todas-partes">
-        <span class="mono eyebrow">05 · En todas partes</span>
-        <h2 id="t5">Contigo en cada pantalla. Legible solo para ti.</h2>
-        <p>Empiezas en el iPhone, sigues en la laptop del trabajo, revisas en el Android de casa. Tus movimientos se cifran en tu dispositivo antes de salir, viajan cifrados y se guardan cifrados. Solo tus dispositivos tienen la llave. Ni Growth, ni nadie más, puede leerlos.</p>
-      </div>
-      <div class="wire" aria-hidden="true">
-        <div class="node from"><span class="dev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></span><b>Tu iPhone</b></div>
-        <div class="track" data-track>
-          <i class="rail"></i>
-          <div class="cloud"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a5 5 0 1 1 1-9.9A6 6 0 0 1 19 10a4 4 0 0 1-1 8H7z"/></svg><span class="mono">Servidores de Growth</span><em class="mono">no pueden leer esto</em></div>
-          <div class="packet" data-packet><svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path data-shackle d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-cipher>Almuerzo · − S/ 18.50</span></div>
-        </div>
-        <div class="node to"><span class="dev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><b>Tu PC con Windows</b></div>
-      </div>
-      <ul class="platforms mono" aria-label="Plataformas">
-        <li>iPhone</li><li>iPad</li><li>Mac</li><li>Windows</li><li>Android</li><li>Web</li>
+      <ul class="sources">
+        <li><b>Apple Pay</b> en tu iPhone</li>
+        <li><b>El botón de acción</b> un toque y lo anotas tú</li>
+        <li><b>Siri</b> cuando pagas en efectivo</li>
       </ul>
-      <ul class="facts mono"><li>Cifrado de extremo a extremo</li><li>Sin publicidad</li><li>Sin analítica</li><li>No vendemos tu información</li><li>Tus datos, exportables siempre</li></ul>
-      <a class="more mono" href="privacy/">Leer la política de privacidad →</a>
+      <p class="capture-foot">Lo que no está claro te espera en Pendientes. Growth no inventa nada.</p>
     </div>
   </section>
 
-  <!-- PROMESA · cómo se siente -->
-  <section class="manifesto feel" aria-label="Cómo se siente">
-    <div class="manifesto-stage">
-      <span class="mono eyebrow">Cómo se siente</span>
-      <p class="big-words" data-words data-accent="3">Abrir la app y no sentir culpa. Comprar sin calcular en la cabeza. Llegar a fin de mes sabiendo que llegas.</p>
+  <!-- 2 · El flujo del sueldo: la pregunta de verdad -->
+  <section class="flow" id="alcanza" aria-labelledby="t-flow">
+    <div class="pin">
+      <h2 id="t-flow">¿Me alcanza hasta que vuelva a cobrar?</h2>
+      <div class="answer">
+        <span class="answer-k">Te quedan</span>
+        <b class="answer-n"><small>US$</small><span data-left aria-live="polite">405.00</span></b>
+        <span class="answer-d" data-perday>≈ US$ 22.50 al día durante 18 días</span>
+      </div>
+      <div class="bar" aria-hidden="true">
+        <div class="seg fixed" style="--w:57.5%" data-seg><span>Fijos</span><em>US$ 1,437.48</em></div>
+        <div class="seg spent" style="--w:26.3%" data-seg><span>Ya gastaste</span><em>US$ 657.52</em></div>
+        <div class="seg free" style="--w:16.2%" data-seg><span>Libre</span></div>
+      </div>
+      <div class="bar-legend" aria-hidden="true"><span>Sueldo de US$ 2,500 el día 1</span><span>Alquiler, cuota del auto, luz, internet, Netflix, Spotify</span></div>
+      <div class="try">
+        <span>¿Y si compro…</span>
+        <div class="try-row" role="group" aria-label="Prueba una compra">
+          <button type="button" data-cost="35" aria-pressed="false">Cena de US$ 35</button>
+          <button type="button" data-cost="89" aria-pressed="false">Entradas de US$ 89</button>
+          <button type="button" data-cost="460" aria-pressed="false">Zapatillas de US$ 460</button>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- TODO LO QUE TIENES -->
-  <section class="all" id="todo" aria-labelledby="t6">
-    <span class="mono eyebrow">Para cuando ya estás convencido</span>
-    <h2 id="t6">Todo lo que tienes con Growth.</h2>
-    <ul class="all-grid" data-all></ul>
-    <p class="langs mono">Español · English · Português</p>
+  <!-- 3 · Growth como servidor MCP, dentro de Claude y de ChatGPT -->
+  <section class="mcp" id="asistente" data-host="claude" aria-labelledby="t-mcp">
+    <div class="pin">
+      <div class="mcp-head">
+        <h2 id="t-mcp">Pregúntale a tu asistente por tu dinero.</h2>
+        <p>Growth es un servidor MCP. Conéctalo a Claude o a ChatGPT y te responden con tus números reales. Tú eliges qué pueden ver.</p>
+        <div class="hosts" role="tablist" aria-label="Asistente">
+          <button type="button" role="tab" aria-selected="true" data-host="claude"><img class="logo-claude" src="assets/claude-logo.png" alt="">Claude</button>
+          <button type="button" role="tab" aria-selected="false" data-host="chatgpt"><img class="logo-gpt" src="assets/chatgpt-mark.png" alt="">ChatGPT</button>
+        </div>
+      </div>
+
+      <div class="desk" aria-hidden="true">
+        <div class="win ai">
+          <div class="win-bar"><i></i><i></i><i></i><span class="host-url" data-claude>claude.ai</span><span class="host-url" data-chatgpt>chatgpt.com</span></div>
+          <div class="ai-body">
+            <aside class="ai-side">
+              <div class="ai-mark"><img class="logo-claude" src="assets/claude-logo.png" alt=""><img class="logo-gpt" src="assets/chatgpt-mark.png" alt=""><b data-claude>Claude</b><b data-chatgpt>ChatGPT</b></div>
+              <span class="side-new">Nuevo chat</span>
+              <span class="side-label">Recientes</span>
+              <span class="side-item on">¿Me alcanza para el concierto?</span>
+              <span class="side-item">Plan de ahorro para el viaje</span>
+              <span class="side-item">Gastos de octubre</span>
+            </aside>
+
+            <!-- Paso 1: añadir el conector -->
+            <div class="ai-pane pane-connect" data-pane="connect">
+              <h3 data-claude>Conectores</h3><h3 data-chatgpt>Apps y conectores</h3>
+              <div class="connect-card">
+                <span class="cc-title">Añadir conector personalizado</span>
+                <label>Nombre<span class="field">Growth</span></label>
+                <label>URL del servidor MCP remoto<span class="field url"><span data-type>https://mcp.growthapp.me</span><i class="caret"></i></span></label>
+                <span class="cc-btn">Añadir</span>
+              </div>
+            </div>
+
+            <!-- Paso 3: la conversación -->
+            <div class="ai-pane pane-chat" data-pane="chat">
+              <div class="chat-scroll">
+                <div class="u" data-step>¿Me alcanza para ir al concierto del 14? La entrada cuesta US$ 89.</div>
+                <div class="tool" data-step>
+                  <img src="assets/apple-touch-icon.png" alt="">
+                  <span data-claude>Usó <b>Growth</b></span><span data-chatgpt>Consultó <b>Growth</b></span>
+                  <code>hasta_proximo_ingreso, pagos_proximos</code>
+                </div>
+                <div class="a" data-step>
+                  <p>Sí, pero justo. Hoy te quedan <b>US$ 405</b> hasta el 30. Si compras la entrada quedan US$ 316, unos <b>US$ 17.50 al día</b>.</p>
+                  <p>La cuota del auto del 20 ya está contada en tus fijos.</p>
+                </div>
+                <div class="u" data-step>Apártamelo como meta.</div>
+                <div class="tool done" data-step>
+                  <img src="assets/apple-touch-icon.png" alt="">
+                  <span data-claude>Usó <b>Growth</b></span><span data-chatgpt>Consultó <b>Growth</b></span>
+                  <code>crear_meta("Concierto", 89)</code>
+                </div>
+                <div class="a" data-step><p>Listo. «Concierto» ya está en tus metas de Growth.</p></div>
+              </div>
+              <div class="composer"><span data-claude>Responder a Claude…</span><span data-chatgpt>Pregunta lo que quieras</span><i class="send"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paso 2: el permiso se da en el teléfono, con la forma de Growth -->
+        <div class="phone consent" data-consent>
+          <div class="phone-screen">
+            <div class="consent-head">
+              <span class="pair"><img src="assets/apple-touch-icon.png" alt=""><i class="dots"></i><span class="pair-ai"><img class="logo-claude" src="assets/claude-logo.png" alt=""><img class="logo-gpt" src="assets/chatgpt-mark.png" alt=""></span></span>
+              <b><span data-claude>¿Conectar Claude?</span><span data-chatgpt>¿Conectar ChatGPT?</span></b>
+            </div>
+            <div class="tiles">
+              <span class="tile on" data-tile>Ver tus movimientos</span>
+              <span class="tile on" data-tile>Anotar gastos</span>
+              <span class="tile on" data-tile>Crear metas</span>
+              <span class="tile" data-tile>Cuentas compartidas</span>
+            </div>
+            <span class="consent-btn">Permitir con Face ID</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- CIERRE -->
-  <section class="close">
-    <i class="grain" aria-hidden="true"></i>
-    <h2 class="close-title"><span class="ln"><span>Tú vive.</span></span><span class="ln"><span>Growth lleva</span></span><span class="ln"><span>la cuenta.</span></span></h2>
-    <div class="cta">
-      <a class="btn btn-store soon" data-link="appStore" href="#">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
-        <span data-label>Muy pronto en el App Store</span>
-      </a>
-      <a class="btn btn-alt soon" data-link="mac" href="#"><span data-label>Mac · pronto</span></a>
-      <a class="btn btn-alt soon" data-link="windows" href="#"><span data-label>Windows · pronto</span></a>
-      <a class="btn btn-alt soon" data-link="android" href="#"><span data-label>Android · pronto</span></a>
-      <a class="btn btn-alt soon" data-link="web" href="#"><span data-label>Web · pronto</span></a>
+  <!-- 4 · La casa: cada uno anota en su Growth, la casa suma lo de todos -->
+  <section class="spaces" id="espacios" aria-labelledby="t-spaces" data-mode="familia">
+    <div class="pin">
+      <div class="spaces-copy">
+        <h2 id="t-spaces">La casa la pagan todos. <em>Ahora se ve.</em></h2>
+        <p>Cada uno anota en su Growth, con su tarjeta y sus categorías, y toca <b>Casa</b>. Nadie ve las cuentas de nadie. Todos ven lo que costó la casa.</p>
+        <div class="modes" role="tablist" aria-label="Tipo de grupo">
+          <button role="tab" aria-selected="true" data-mode="familia">En familia</button>
+          <button role="tab" aria-selected="false" data-mode="depa">Depa compartido</button>
+        </div>
+      </div>
+
+      <div class="people" aria-hidden="true">
+        <article class="who" data-who="0">
+          <header><i class="av a0"><span data-fam>M</span><span data-depa>A</span></i><span data-fam>Mamá</span><span data-depa>Ana</span></header>
+          <b class="amt"><span data-fam>US$ 85</span><span data-depa>US$ 720</span></b>
+          <span class="meta"><span data-fam>Mercado de la semana</span><span data-depa>Alquiler</span><small><span data-fam>con su débito</span><span data-depa>por transferencia</span></small></span>
+          <span class="for"><span>Para mí</span><span class="house">Casa</span></span>
+        </article>
+        <article class="who" data-who="1">
+          <header><i class="av a1"><span data-fam>P</span><span data-depa>L</span></i><span data-fam>Papá</span><span data-depa>Luis</span></header>
+          <b class="amt"><span data-fam>US$ 120</span><span data-depa>US$ 300</span></b>
+          <span class="meta"><span data-fam>Supermercado</span><span data-depa>Súper</span><small>con su Visa</small></span>
+          <span class="for"><span>Para mí</span><span class="house">Casa</span></span>
+        </article>
+        <article class="who me" data-who="2">
+          <header><i class="av a2">Tú</i>Tú</header>
+          <b class="amt"><span data-fam>US$ 40</span><span data-depa>US$ 180</span></b>
+          <span class="meta"><span data-fam>Comida</span><span data-depa>Luz e internet</span><small>con tu cuenta sueldo</small></span>
+          <span class="for"><span>Para mí</span><span class="house">Casa</span></span>
+        </article>
+      </div>
+
+      <div class="house-card" aria-live="polite">
+        <div class="hc-head">
+          <div><b><span data-fam>Casa</span><span data-depa>Depa</span></b><span data-fam>Mamá, Papá y tú</span><span data-depa>Ana, Luis y tú</span></div>
+        </div>
+        <p class="hc-total">En noviembre <span data-fam>la casa costó</span><span data-depa>el depa costó</span> <b>US$ <span data-total>0</span></b></p>
+        <div class="hc-bar"><i class="s0" data-bar="0"></i><i class="s1" data-bar="1"></i><i class="s2" data-bar="2"></i></div>
+        <ul class="hc-legend">
+          <li><i class="a0"></i><span data-fam>Mamá</span><span data-depa>Ana</span> <b data-put="0">US$ 0</b></li>
+          <li><i class="a1"></i><span data-fam>Papá</span><span data-depa>Luis</span> <b data-put="1">US$ 0</b></li>
+          <li><i class="a2"></i>Tú <b data-put="2">US$ 0</b></li>
+        </ul>
+        <div class="hc-end" data-end>
+          <p data-fam>Cada uno puso lo que pudo. <b>Nadie le debe a nadie.</b></p>
+          <div class="settle" data-depa>
+            <span class="settle-line">Tú le pagas a <b>Ana</b> <b class="settle-n">US$ 220</b></span>
+            <span class="settle-btn">Saldar</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <p class="close-note">Una cuenta, todos tus dispositivos, una sola llave: la tuya.</p>
-    <footer class="foot mono"><span>© 2026 Growth</span><a href="privacy/">Privacidad</a></footer>
   </section>
+
+  <!-- 5 · Dispositivos: se entra con el teléfono, como WhatsApp Web -->
+  <section class="devices" id="dispositivos" aria-labelledby="t-devices">
+    <div class="pin">
+      <div class="devices-copy">
+        <h2 id="t-devices">En tu Mac, entras con tu iPhone.</h2>
+        <p>Abres Growth en tu Mac, escaneas el código y tus datos ya están ahí.</p>
+      </div>
+      <div class="laptop" aria-hidden="true">
+        <div class="lid">
+          <div class="lap-screen">
+            <img class="lap-link" src="assets/screens/mac-link.jpg" alt="" width="1900" height="820" data-lap-link>
+            <div class="lap-app" data-lap-app>
+              <aside><b><img src="assets/apple-touch-icon.png" alt="">Growth</b><span class="on">Inicio</span><span>Movimientos</span><span>Insights</span><span>Más</span></aside>
+              <div class="lap-main">
+                <div class="lap-hero"><div><span>Balance disponible</span><b>US$ 1,400</b></div><img src="assets/grow/night.png" alt=""></div>
+                <div class="lap-rows"><p><i class="c1"></i>Almuerzo<em>−US$ 18.50</em></p><p><i class="c2"></i>Bus<em>−US$ 1.80</em></p><p><i class="c1"></i>Café de la esquina<em>−US$ 4.50</em></p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="base"></div>
+      </div>
+      <div class="phone scanner" data-scanner aria-hidden="true">
+        <div class="phone-screen">
+          <div class="viewfinder"><i class="corner a"></i><i class="corner b"></i><i class="corner c"></i><i class="corner d"></i><i class="scanline" data-scanline></i></div>
+          <div class="ask-sheet" data-ask><b>¿Entrar en «MacBook de Ana»?</b><span class="ask-btn">Entrar</span></div>
+        </div>
+      </div>
+      <p class="e2e"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="currentColor"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>Cifrado de extremo a extremo. Solo tú puedes ver tus datos.</p>
+    </div>
+  </section>
+
+  <!-- 6 · Cierre: tu semilla crece con cada día que registras -->
+  <section class="seed" id="descargar" aria-labelledby="t-seed">
+    <div class="pin">
+      <div class="seed-stage" aria-hidden="true">
+        <img src="assets/grow/seed.png" alt="" data-stage>
+        <img src="assets/grow/sprout.png" alt="" data-stage>
+        <img src="assets/grow/seedling.png" alt="" data-stage>
+        <img src="assets/grow/young.png" alt="" data-stage>
+        <img src="assets/grow/leafy.png" alt="" data-stage>
+        <img src="assets/grow/shrub.png" alt="" data-stage>
+        <img src="assets/grow/sapling.png" alt="" data-stage>
+        <img src="assets/grow/tree.png" alt="" data-stage>
+        <img src="assets/grow/blossom.png" alt="" data-stage>
+        <img src="assets/grow/fruit.png" alt="" data-stage>
+      </div>
+      <div class="seed-copy">
+        <h2 id="t-seed">Esta es tu semilla.</h2>
+        <p>Crece con cada día que registras y nunca retrocede.</p>
+        <div class="badges light">
+          <a class="badge soon" data-link="appStore" href="#">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
+            <span><small data-small="Descárgalo en el">Muy pronto en el</small><b>App Store</b></span>
+          </a>
+          <a class="badge soon" data-link="mac" href="#">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.33-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>
+            <span><small data-small="Descárgalo para">Muy pronto para</small><b>Mac</b></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot"><span>© 2026 Growth</span><a href="privacy/">Privacidad</a></footer>
 </main>
 
 <script src="assets/scripts/vendor/gsap.min.js"></script>
 <script src="assets/scripts/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/scripts/vendor/lenis.min.js"></script>
 <script>
-// Los enlaces de descarga viven solo aquí. Mientras estén vacíos, el botón
-// dice «pronto» en vez de llevar a una página que no existe.
-const LINKS = {
-  appStore: "", // https://apps.apple.com/app/id<número>
-  mac: "",      // https://github.com/jahazielgg/growth-web/releases/latest/download/Growth.dmg
-  windows: "",
-  android: "",
-  web: "",
-};
-const LABELS = { appStore: "Descargar en el App Store", mac: "Descargar para Mac", windows: "Descargar para Windows", android: "Descargar en Google Play", web: "Abrir Growth web" };
-for (const button of document.querySelectorAll("[data-link]")) {
-  const key = button.dataset.link;
-  if (!LINKS[key]) continue;
-  button.href = LINKS[key];
-  button.classList.remove("soon");
-  button.querySelector("[data-label]").textContent = LABELS[key];
+// Los enlaces de descarga viven solo aquí. Mientras estén vacíos, el botón dice «Muy pronto».
+const LINKS = { appStore: "", mac: "" }; // https://apps.apple.com/app/id<número>
+for (const a of document.querySelectorAll("[data-link]")) {
+  const url = LINKS[a.dataset.link];
+  if (!url) continue;
+  a.href = url; a.classList.remove("soon");
+  const small = a.querySelector("[data-small]"); if (small) small.textContent = small.dataset.small;
 }
 </script>
-<script src="assets/scripts/features.js"></script>
 <script src="assets/scripts/landing.js"></script>
 </body>
 </html>

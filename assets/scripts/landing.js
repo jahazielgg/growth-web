@@ -1,196 +1,216 @@
-// Growth · movimiento de la landing de visión. GSAP + ScrollTrigger + Lenis.
-// Reglas: solo transform, opacity y clip-path; todo ligado al scroll; sin movimiento, la página queda completa y quieta.
+// Growth · movimiento de la landing. GSAP + ScrollTrigger + Lenis.
+// Carácter (growth-ux §3.5): lo que aparece nace de donde tiene sentido, lo que se va dura la mitad,
+// resortes sin rebote. Sin movimiento, cada escena queda en su estado final.
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const fmt = (n, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const money = (n) => n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const reduce = document.documentElement.classList.contains("rm");
-  const BASE = 405.1, DAYS = 18;
+  const motion = !reduce && window.gsap && window.ScrollTrigger;
 
-  // Frases grandes en palabras; las últimas N en lima. El scroll solo las enciende.
-  $$("[data-words]").forEach((p) => {
-    const words = p.textContent.trim().split(/\s+/), n = +p.dataset.accent || 0;
-    p.innerHTML = words.map((w, i) => `<span class="w${i >= words.length - n ? " acc" : ""}">${w}</span>`).join(" ");
-  });
+  /* ---------- Estado que no depende del movimiento ---------- */
 
-  // 02 · ¿Me lo puedo permitir? La cifra, el veredicto y la línea hasta el cobro responden.
-  const simNum = $("[data-sim-num]"), verdict = $("[data-verdict]"), tlFill = $("[data-tl-fill]");
-  const sim = { v: BASE };
-  let touched = false;
+  // 1 · La pila de avisos: el más nuevo arriba, anclada abajo como en iOS.
+  const notes = $$("[data-note]");
+  const slotY = (k) => -notes.slice(0, k).reduce((h, n) => h + n.offsetHeight + 8, 0);
+  const placeNotes = () => notes.forEach((n, k) => { n.style.translate = `0 ${slotY(k)}px`; });
+  placeNotes();
+  addEventListener("resize", placeNotes);
+
+  // 2 · ¿Me alcanza? La cifra sale de lo que el scroll ya restó y de la compra que pruebas.
+  const SALARY = 2500, FIXED = 1437.48, SPENT = 657.52, DAYS = 18;
+  const LEFT = SALARY - FIXED - SPENT; // 405
+  const leftEl = $("[data-left]"), perDay = $("[data-perday]"), free = $(".seg.free");
+  const state = { base: LEFT, cost: 0, shown: LEFT };
   const paint = () => {
-    simNum.textContent = fmt(sim.v);
-    simNum.parentElement.classList.toggle("low", sim.v < 0);
-    if (tlFill) tlFill.style.transform = `scaleX(${Math.max(0, Math.min(1, sim.v / BASE))})`;
+    const v = state.shown;
+    leftEl.textContent = money(Math.abs(v)).replace(/^/, v < 0 ? "−" : "");
+    leftEl.parentElement.classList.toggle("short", v < 0);
+    if (state.base > LEFT + 1) perDay.textContent = "Restando tus fijos y lo que ya gastaste…";
+    else if (v < 0) perDay.textContent = `Te faltarían US$ ${money(-v)} antes de cobrar`;
+    else perDay.textContent = `≈ US$ ${money(v / DAYS)} al día durante ${DAYS} días`;
+    if (free) free.style.transform = `scaleX(${Math.max(0.02, Math.min(1, v / LEFT))})`;
   };
-  const chips = $$(".sim-chips button");
-  chips.forEach((b) => b.addEventListener("click", () => {
-    touched = true;
-    chips.forEach((o) => { const on = o === b; o.classList.toggle("on", on); o.setAttribute("aria-pressed", on); });
-    verdict.textContent = b.dataset.say;
-    const target = BASE - parseFloat(b.dataset.cost);
-    if (!window.gsap || reduce) { sim.v = target; paint(); return; }
-    gsap.to(sim, { v: target, duration: 0.8, ease: "expo.out", overwrite: true, onUpdate: paint });
+  const target = () => state.base - state.cost;
+  $$(".try button").forEach((b) => b.addEventListener("click", () => {
+    const on = b.getAttribute("aria-pressed") !== "true";
+    $$(".try button").forEach((o) => o.setAttribute("aria-pressed", "false"));
+    b.setAttribute("aria-pressed", String(on));
+    state.cost = on ? parseFloat(b.dataset.cost) : 0;
+    if (motion) gsap.to(state, { shown: target(), duration: 0.7, ease: "expo.out", overwrite: true, onUpdate: paint });
+    else { state.shown = target(); paint(); }
   }));
   paint();
 
-  // 05 · Cifrado: el texto se vuelve ilegible al salir y se recupera solo al llegar.
-  const cipher = $("[data-cipher]"), packet = $("[data-packet]"), toNode = $(".node.to");
-  const PLAIN = cipher.textContent;
-  const GLYPHS = "A9f#2kQx$7Zp!eR4m%Wb8&Ln0yT@3vH";
-  const NOISE = [...PLAIN].map((c, i) => (c === " " ? " " : GLYPHS[(i * 7 + 3) % GLYPHS.length]));
-  const setCipher = (amount) => {
-    const k = Math.round(amount * PLAIN.length);
-    cipher.textContent = [...PLAIN].map((c, i) => (i < k ? NOISE[i] : c)).join("");
-    packet.classList.toggle("sealed", amount > 0.5);
+  // 3 · Claude o ChatGPT: la misma conversación, en el entorno de cada uno.
+  const mcp = $(".mcp");
+  $$(".hosts button").forEach((b) => b.addEventListener("click", () => {
+    mcp.dataset.host = b.dataset.host;
+    $$(".hosts button").forEach((o) => o.setAttribute("aria-selected", String(o === b)));
+  }));
+
+  // 4 · La casa: cada aporte entra a la barra cuando su dueño toca «Casa».
+  const spaces = $(".spaces");
+  const PUT = { familia: [340, 260, 150], depa: [720, 300, 180] };
+  const house = { fill: [1, 1, 1] };
+  const usd = (n) => Math.round(n).toLocaleString("en-US");
+  const paintHouse = () => {
+    const put = PUT[spaces.dataset.mode], all = put.reduce((a, b) => a + b, 0);
+    let total = 0;
+    put.forEach((v, k) => {
+      const f = house.fill[k]; total += v * f;
+      $(`[data-bar="${k}"]`).style.width = `${(v / all) * f * 100}%`;
+      $(`[data-put="${k}"]`).textContent = `US$ ${usd(v * f)}`;
+      $(`[data-who="${k}"]`).classList.toggle("sel", f > 0.02);
+    });
+    $("[data-total]").textContent = usd(total);
   };
+  $$(".modes button").forEach((b) => b.addEventListener("click", () => {
+    spaces.dataset.mode = b.dataset.mode;
+    $$(".modes button").forEach((o) => o.setAttribute("aria-selected", String(o === b)));
+    paintHouse();
+  }));
+  paintHouse();
 
-  if (reduce || !window.gsap || !window.ScrollTrigger) { setCipher(1); return; }
+  if (!motion) return;
+
+  /* ---------- Movimiento ---------- */
   gsap.registerPlugin(ScrollTrigger);
-
-  // Scroll suave, movido por el reloj de GSAP.
   const lenis = new Lenis({ lerp: 0.1 });
   lenis.on("scroll", ScrollTrigger.update);
   gsap.ticker.add((t) => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
-  $$('a[href^="#"]').forEach((a) => a.addEventListener("click", (e) => {
-    const target = a.getAttribute("href").length > 1 && $(a.getAttribute("href"));
-    if (target) { e.preventDefault(); lenis.scrollTo(target, { duration: 1.4 }); }
-  }));
-
-  const mm = gsap.matchMedia();
   const isMobile = () => matchMedia("(max-width: 879px)").matches;
-
-  /* HERO · entrada por líneas y planos con profundidad propia */
-  gsap.from(".hero-title .ln>span", { yPercent: 115, duration: 1.3, ease: "expo.out", stagger: 0.12 });
-  gsap.from(".hero-phone img", { y: "28%", duration: 1.5, ease: "expo.out", delay: 0.25 });
-  gsap.from([".tag", ".leaf"], { scale: 0.6, opacity: 0, duration: 0.9, ease: "back.out(1.7)", stagger: 0.14, delay: 1 });
-  gsap.from([".hero-foot", ".cue", ".bar"], { opacity: 0, y: 18, duration: 1, ease: "expo.out", stagger: 0.1, delay: 0.7 });
-  gsap.utils.toArray(".hero [data-depth]").forEach((el) => {
-    const d = parseFloat(el.dataset.depth);
-    gsap.fromTo(el, { y: 0 }, { y: () => d * innerHeight, ease: "none",
-      scrollTrigger: { trigger: document.body, start: 0, end: () => innerHeight, scrub: true, invalidateOnRefresh: true } });
-  });
-  gsap.to(".leaf", { rotate: 38, ease: "none", scrollTrigger: { trigger: document.body, start: 0, end: () => innerHeight, scrub: true } });
-  if (matchMedia("(hover:hover) and (pointer:fine)").matches) {
-    const hero = $("#hero");
-    const px = [[".hero-phone", 10], [".tag-a", 34], [".tag-b", -40], [".tag-c", 24], [".leaf", -56]].map(([s, k]) => ({ k, x: gsap.quickTo(s, "x", { duration: 0.9, ease: "power3" }) }));
-    hero.addEventListener("pointermove", (e) => { const nx = e.clientX / innerWidth - 0.5; px.forEach((p) => p.x(nx * p.k)); });
-  }
-
-  const scrub = (section, extra = {}) => gsap.timeline({
+  const scrub = (trigger, extra = {}) => gsap.timeline({
     defaults: { ease: "none" },
-    scrollTrigger: { trigger: section, start: "top top", end: "bottom bottom", scrub: 0.6, ...extra }
+    scrollTrigger: { trigger, start: "top top", end: trigger === ".seed" ? "bottom bottom" : "bottom 200%", scrub: 0.6, ...extra },
   });
 
-  /* MANIFIESTOS · palabra por palabra */
-  $$(".manifesto").forEach((m) => {
-    scrub(m).to({}, { duration: 10 }).to($$(".w", m), { opacity: 1, duration: 0.5, stagger: 0.4 }, 0.4);
-  });
-
-  /* 01 · tres fuentes caen, una tras otra, y la lista se acomoda sola */
+  /* EL MAZO · la escena que se va sube un poco más lento mientras la siguiente la cubre; los colores no se mezclan */
   {
-    const step = () => (isMobile() ? 72 : 76);
-    const rows = $$("[data-cap]");
-    const notifs = $$("[data-notif]");
-    // Cada fila vive en su sitio final; se sube según cuántas capturas faltan por llegar.
-    const yAt = (k) => -(3 - k) * step();
-    rows.forEach((r) => {
-      const idx = +r.dataset.cap;
-      gsap.set(r, { y: idx < 0 ? yAt(0) : yAt(idx + 1) - 14, opacity: idx < 0 ? 1 : 0, scale: idx < 0 ? 1 : 0.94 });
+    const scenes = [$(".hero"), ...$$("main > section")];
+    for (let i = 1; i < scenes.length; i++) {
+      const prev = i === 1 ? scenes[0] : scenes[i - 1].querySelector(".pin");
+      gsap.to(prev, {
+        y: () => -innerHeight * 0.12, ease: "none",
+        scrollTrigger: { trigger: scenes[i], start: "top bottom", end: "top top", scrub: true },
+      });
+    }
+  }
+
+  /* HERO · Grow despierta; el mazo lima sube desde el borde, como en Inicio */
+  gsap.from(".hero h1 .ln>span", { yPercent: 110, duration: 1.2, ease: "expo.out", stagger: 0.1 });
+  gsap.from(".hero-copy p, .hero-copy .badge", { y: 16, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.08, delay: 0.35 });
+  gsap.from(".grow-hero", { scale: 0.9, opacity: 0, duration: 1.4, ease: "expo.out", delay: 0.15, transformOrigin: "50% 90%" });
+  gsap.from(".top", { y: -20, opacity: 0, duration: 0.8, ease: "expo.out", delay: 0.6 });
+  gsap.to(".grow-hero img", { scaleY: 1.015, scaleX: 0.995, transformOrigin: "50% 95%", duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: -1 });
+  const heroScroll = { trigger: ".hero", start: "top top", end: "bottom top", scrub: true };
+  gsap.to(".grow-hero", { y: () => innerHeight * 0.12, ease: "none", scrollTrigger: heroScroll });
+  gsap.to(".hills-back", { y: () => innerHeight * 0.06, ease: "none", scrollTrigger: heroScroll });
+  gsap.to(".hero-copy", { y: () => -innerHeight * 0.08, opacity: 0.2, ease: "none", scrollTrigger: heroScroll });
+
+  /* 1 · CAPTURA · tres pagos, tres orígenes; el último pide confirmación */
+  {
+    const sources = $$(".sources li");
+    gsap.set(".lock", { y: 60, opacity: 0 });
+    gsap.set(notes, { opacity: 0, y: -24, scale: 0.96 });
+    const tl = scrub(".capture", {
+      onUpdate: (st) => sources.forEach((s, k) => s.classList.toggle("on", st.progress > 0.18 + k * 0.24)),
+    }).to({}, { duration: 10 })
+      .to(".lock", { y: 0, opacity: 1, duration: 1.2, ease: "expo.out" }, 0);
+    notes.forEach((n, k) => tl.to(n, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "expo.out" }, 1.6 + k * 2.4));
+  }
+
+  /* 2 · EL FLUJO · del sueldo salen los fijos y lo gastado; lo que queda es lo libre */
+  {
+    const segs = $$("[data-seg]");
+    gsap.set(segs, { scaleX: 0 });
+    gsap.set(".answer, .try", { opacity: 0, y: 20 });
+    state.base = SALARY; state.shown = SALARY; paint();
+    const sync = () => { state.shown = target(); paint(); };
+    scrub(".flow").to({}, { duration: 10 })
+      .to(".answer", { opacity: 1, y: 0, duration: 1, ease: "expo.out" }, 0.2)
+      .to(segs[0], { scaleX: 1, duration: 2, ease: "power2.out" }, 1)
+      .to(state, { base: SALARY - FIXED, duration: 2, ease: "power2.out", onUpdate: sync }, 1)
+      .to(segs[1], { scaleX: 1, duration: 2, ease: "power2.out" }, 3.2)
+      .to(state, { base: LEFT, duration: 2, ease: "power2.out", onUpdate: sync }, 3.2)
+      .to(segs[2], { scaleX: 1, duration: 1.2, ease: "expo.out", onUpdate: paint }, 5.4)
+      .to(".try", { opacity: 1, y: 0, duration: 1, ease: "expo.out" }, 6.2);
+  }
+
+  /* 3 · MCP · añades el conector, lo permites en tu teléfono y le preguntas */
+  {
+    const typed = $("[data-type]"), URL = typed.textContent;
+    const steps = $$(".pane-chat [data-step]");
+    const typing = { n: 0 };
+    typed.textContent = "";
+    gsap.set(".desk", { y: 70, opacity: 0 });
+    gsap.set(".pane-chat", { autoAlpha: 0 });
+    gsap.set(steps, { opacity: 0, y: 14 });
+    gsap.set("[data-consent]", { yPercent: 115 });
+    gsap.set("[data-tile]", { scale: 0.9, opacity: 0 });
+    const chat = scrub(".mcp").to({}, { duration: 12 })
+      .to(".desk", { y: 0, opacity: 1, duration: 1, ease: "expo.out" }, 0)
+      .to(typing, { n: URL.length, duration: 1.8, ease: "none", onUpdate: () => (typed.textContent = URL.slice(0, Math.round(typing.n))) }, 0.8)
+      // El permiso nace abajo, donde está tu teléfono; se va más rápido de lo que llegó.
+      .to("[data-consent]", { yPercent: 0, duration: 1.2, ease: "expo.out" }, 3)
+      .to("[data-tile]", { scale: 1, opacity: 1, duration: 0.6, ease: "expo.out", stagger: 0.15 }, 3.5)
+      .to("[data-consent]", { yPercent: 115, duration: 0.6, ease: "power2.in" }, 5.2)
+      .to(".pane-connect", { autoAlpha: 0, duration: 0.4 }, 5.4)
+      .to(".pane-chat", { autoAlpha: 1, duration: 0.4 }, 5.5);
+    steps.forEach((s, i) => chat.to(s, { opacity: 1, y: 0, duration: 0.6, ease: "expo.out" }, 6 + i * 0.95));
+  }
+
+  /* 4 · LA CASA · cada uno anota lo suyo y toca Casa; la barra suma a todos */
+  {
+    house.fill = [0, 0, 0]; paintHouse();
+    gsap.set(".who", { y: 40, opacity: 0 });
+    gsap.set(".house-card", { y: 60, opacity: 0 });
+    gsap.set("[data-end]", { opacity: 0, y: 12 });
+    const tl = scrub(".spaces").to({}, { duration: 10 })
+      .to(".house-card", { y: 0, opacity: 1, duration: 1, ease: "expo.out" }, 0.2);
+    [0, 1, 2].forEach((k) => {
+      const at = 0.8 + k * 2.2;
+      tl.to(`[data-who="${k}"]`, { y: 0, opacity: 1, duration: 0.9, ease: "expo.out" }, at)
+        .to(house.fill, { [k]: 1, duration: 1, ease: "power2.out", onUpdate: paintHouse }, at + 0.9);
     });
-    gsap.set(notifs, { opacity: 0, y: -70, scale: 0.94 });
-    const tl = scrub(".capture", { invalidateOnRefresh: true }).to({}, { duration: 9 });
-    notifs.forEach((n, k) => {
-      const t = 0.3 + k * 2.8;
-      tl.to(n, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "expo.out" }, t)
-        .to(n, { y: 60, scale: 0.9, opacity: 0, duration: 0.7, ease: "power2.in" }, t + 1.3);
-      const visible = rows.filter((r) => +r.dataset.cap < k);
-      tl.to(visible, { y: () => yAt(k + 1), duration: 0.9, ease: "expo.out", stagger: 0.05 }, t + 1.7)
-        .to(rows.find((r) => +r.dataset.cap === k), { y: () => yAt(k + 1), opacity: 1, scale: 1, duration: 0.9, ease: "expo.out" }, t + 1.8);
-    });
+    tl.to("[data-end]", { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" }, 8);
   }
 
-  /* 02 · la captura sube, la cifra aparece y queda para jugar */
+  /* 5 · DISPOSITIVOS · el teléfono escanea, confirmas y la computadora se llena */
   {
-    gsap.set(".shot-phone", { yPercent: 40, rotate: 5, opacity: 0 });
-    scrub(".runway").to({}, { duration: 8 })
-      .to(".shot-phone", { yPercent: 0, rotate: 0, opacity: 1, duration: 2.6, ease: "expo.out" }, 0.2)
-      .to(".shot-phone", { yPercent: -4, duration: 5, ease: "none" }, 3)
-      .fromTo(".sim", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 2, ease: "expo.out" }, 0.4);
-    sim.v = 0; paint();
-    ScrollTrigger.create({ trigger: ".runway", start: "top 70%", once: true,
-      onEnter: () => { if (!touched) gsap.to(sim, { v: BASE, duration: 1.8, ease: "expo.out", overwrite: true, onUpdate: paint }); } });
+    gsap.set(".laptop", { y: 60, opacity: 0 });
+    gsap.set("[data-scanner]", { yPercent: 130 });
+    gsap.set(".e2e", { opacity: 0, y: 12 });
+    scrub(".devices").to({}, { duration: 10 })
+      .to(".laptop", { y: 0, opacity: 1, duration: 1.2, ease: "expo.out" }, 0)
+      .to("[data-scanner]", { yPercent: 0, duration: 1.2, ease: "expo.out" }, 1.4)
+      .fromTo("[data-scanline]", { top: "28%" }, { top: "62%", duration: 0.7, ease: "sine.inOut", repeat: 2, yoyo: true }, 2.4)
+      .to("[data-ask]", { translate: "0 0", duration: 1, ease: "expo.out" }, 4.6)
+      .to("[data-scanner]", { yPercent: 130, duration: 0.6, ease: "power2.in" }, 6.4)
+      .to("[data-lap-app]", { opacity: 1, duration: 0.8 }, 6.6)
+      .to(".e2e", { opacity: 1, y: 0, duration: 1, ease: "expo.out" }, 7.6);
   }
 
-  /* 03 · la conversación avanza con el scroll; las herramientas giran y se resuelven */
+  /* 6 · LA SEMILLA · diez etapas; cada una brota desde la maceta, la anterior se va en la mitad del tiempo */
   {
-    const msgs = $$(".chat [data-msg]");
-    gsap.set(".chat", { y: 60, opacity: 0 });
-    gsap.set(msgs, { y: 18, opacity: 0 });
-    gsap.set(".scopes li", { y: 14, opacity: 0 });
-    const tl = scrub(".mcp").to({}, { duration: 10 })
-      .to(".chat", { y: 0, opacity: 1, duration: 1.2, ease: "expo.out" }, 0.1);
-    msgs.forEach((m, i) => tl.to(m, { y: 0, opacity: 1, duration: 0.8, ease: "expo.out" }, 0.9 + i * 1.25));
-    tl.to(".scopes li", { y: 0, opacity: 1, duration: 0.8, ease: "expo.out", stagger: 0.25 }, 7.4);
-    gsap.to(".tool:not(.done) i", { rotate: 360, duration: 0.9, ease: "none", repeat: -1 });
-  }
-
-  /* 04 · los espacios se abren en abanico; la casa queda al frente y sus barras se llenan */
-  {
-    const total = { v: 0 }, homeTotal = $("[data-home-total]");
-    const [s3, s2, s1] = $$("[data-space]");
-    gsap.set([s1, s2, s3], { y: 80, opacity: 0 });
-    gsap.set(".s1 .hb-t i, .sp-goal .hb-t i", { scaleX: 0 });
-    gsap.set(".settle", { y: 20, opacity: 0 });
-    homeTotal.textContent = fmt(0);
-    mm.add({ desk: "(min-width: 880px)", mob: "(max-width: 879px)" }, (ctx) => {
-      const spread = ctx.conditions.desk ? 1 : 0.55;
-      scrub(".spaces").to({}, { duration: 8 })
-        .to([s3, s2, s1], { y: 0, opacity: 1, duration: 1.2, ease: "expo.out", stagger: 0.2 }, 0.1)
-        .to(s3, { x: 70 * spread, y: -10, rotate: 9 * spread, duration: 1.6, ease: "power3.out" }, 1.6)
-        .to(s2, { x: 34 * spread, y: -4, rotate: 4.5 * spread, duration: 1.6, ease: "power3.out" }, 1.6)
-        .to(".sp-goal .hb-t i", { scaleX: 1, duration: 1.4, ease: "power3.out" }, 1.8)
-        .to(".s1 .hb-t i", { scaleX: 1, duration: 1.6, ease: "power3.out", stagger: 0.25 }, 2.4)
-        .to(total, { v: 1228, duration: 2.4, ease: "power2.out", onUpdate: () => (homeTotal.textContent = fmt(total.v)) }, 2.4)
-        .to(".settle", { y: 0, opacity: 1, duration: 1, ease: "expo.out" }, 4.6);
-    });
-  }
-
-  /* 05 · el paquete viaja: se cifra al salir, cruza el servidor ilegible y se abre solo en tu otro dispositivo */
-  {
-    const track = $("[data-track]");
-    const shackle = $("[data-shackle]");
-    const prog = { p: 0 };
-    const render = () => {
-      const p = prog.p;
-      const vertical = isMobile();
-      const span = vertical ? track.offsetHeight - packet.offsetHeight : track.offsetWidth - packet.offsetWidth;
-      gsap.set(packet, vertical ? { x: 0, y: p * span } : { y: 0, x: p * span });
-      // 0–0.25 se cifra · 0.25–0.75 viaja cifrado · 0.75–0.95 se descifra
-      const enc = gsap.utils.clamp(0, 1, gsap.utils.mapRange(0.05, 0.28, 0, 1, p));
-      const dec = gsap.utils.clamp(0, 1, gsap.utils.mapRange(0.74, 0.95, 0, 1, p));
-      setCipher(enc * (1 - dec));
-      shackle.setAttribute("d", enc * (1 - dec) > 0.5 ? "M8 11V7a4 4 0 0 1 8 0v4" : "M8 11V7a4 4 0 0 1 7.5-2");
-      toNode.classList.toggle("got", p > 0.95);
-      gsap.set(".cloud em", { opacity: p > 0.38 && p < 0.7 ? 1 : 0 });
+    const stages = $$("[data-stage]");
+    const last = stages.length - 1;
+    let cur = 0;
+    gsap.set(stages, { opacity: 0 }); gsap.set(stages[0], { opacity: 1 });
+    const show = (i) => {
+      if (i === cur) return;
+      const prev = stages[cur]; cur = i;
+      gsap.to(prev, { opacity: 0, scale: 0.97, duration: 0.18, ease: "power2.in", overwrite: true });
+      gsap.fromTo(stages[i], { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.42, ease: "expo.out", overwrite: true });
     };
-    gsap.set([".e2e-copy", ".wire", ".platforms li", ".e2e .facts li", ".e2e .more"], { y: 24, opacity: 0 });
-    scrub(".e2e", { onRefresh: render }).to({}, { duration: 10 })
-      .to(".e2e-copy", { y: 0, opacity: 1, duration: 1, ease: "expo.out" }, 0)
-      .to(".wire", { y: 0, opacity: 1, duration: 1, ease: "expo.out" }, 0.4)
-      .to(prog, { p: 1, duration: 6, ease: "power1.inOut", onUpdate: render }, 1.4)
-      .to(".platforms li", { y: 0, opacity: 1, duration: 0.8, ease: "expo.out", stagger: 0.12 }, 7.2)
-      .to([".e2e .facts li", ".e2e .more"], { y: 0, opacity: 1, duration: 0.8, ease: "expo.out", stagger: 0.08 }, 8);
-    render();
+    const prog = { p: 0 };
+    gsap.set(".seed-copy > *", { y: 20, opacity: 0 });
+    scrub(".seed").to({}, { duration: 10 })
+      .to(".seed-copy h2, .seed-copy p", { y: 0, opacity: 1, duration: 1, ease: "expo.out", stagger: 0.15 }, 0)
+      .to(prog, { p: 1, duration: 7, ease: "none", onUpdate: () => show(Math.round(prog.p * last)) }, 1)
+      .to(".seed-copy .badges", { y: 0, opacity: 1, duration: 1, ease: "expo.out" }, 7.6);
   }
 
-  /* TODO LO QUE TIENES */
-  gsap.from(".all-grid li", { y: 30, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.04,
-    scrollTrigger: { trigger: ".all-grid", start: "top 85%", once: true } });
-
-  /* CIERRE · vuelve el lima */
-  gsap.from(".close-title .ln>span", { yPercent: 115, duration: 1.4, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".close", start: "top 55%", once: true } });
-  gsap.from([".close .cta", ".close-note"], { y: 24, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.1, delay: 0.3, scrollTrigger: { trigger: ".close", start: "top 45%", once: true } });
-
-  addEventListener("load", () => ScrollTrigger.refresh());
+  addEventListener("load", () => { placeNotes(); ScrollTrigger.refresh(); });
 })();
