@@ -385,14 +385,14 @@ main>section{z-index:1}
 html.mx main>section{background:transparent}
 html.mx main>section>.pin{background:var(--bg)}
 .hero{--bg:var(--night)}.capture{--bg:var(--paper)}.flow{--bg:var(--lime)}.mcp{--bg:var(--deep)}.spaces{--bg:var(--paper)}.devices{--bg:var(--graphite)}.seed{--bg:var(--seed)}
-.veil{position:sticky;top:0;height:100svh;margin-bottom:-100svh;pointer-events:none}
-html.mx .spaces>.pin{border-radius:40px 40px 0 0;box-shadow:0 -24px 60px rgba(8,24,16,.25)}
+html.mx body{background:#0a1a11}
+html.mx .hero{overflow:hidden}
+html.mx main>section>.pin{will-change:transform,clip-path}
 main>section:not(:first-child){margin-top:-100svh}
 main>section:not(.seed){height:calc(var(--h) + 100svh)}
 .capture{--h:300svh}.flow{--h:240svh}.mcp{--h:420svh}.spaces{--h:260svh}.devices{--h:280svh}
 .foot{position:relative;z-index:1}
 @media(max-width:879px){
-  html.mx .spaces>.pin{border-radius:28px 28px 0 0}
   .capture{--h:280svh}.flow{--h:220svh}.mcp{--h:400svh}.spaces{--h:240svh}.devices{--h:260svh}
 }
 html.rm .hero{position:relative}
