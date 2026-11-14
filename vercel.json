@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/connect/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "mcp.growthapp.me"
+        }
+      ],
+      "destination": "/connect/:path*"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "mcp.growthapp.me"
+        }
+      ],
+      "destination": "https://tlwboeoreerunwakkkan.supabase.co/functions/v1/growth-mcp/:path*"
+    }
+  ]
+}
