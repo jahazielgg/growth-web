@@ -76,5 +76,6 @@ a{color:inherit}
   .qr{display:none}
   .card .sprout{width:120px;top:-96px;right:20px}
   .stage{padding-top:44px}
+  .card{margin-top:40px}
 }
 @media (prefers-reduced-motion:reduce){.tile,.state .dot{animation:none}}
