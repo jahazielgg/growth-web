@@ -1,0 +1,80 @@
+/* Growth · páginas de paso (conectar un asistente, invitación a un grupo).
+   El mismo lenguaje que la app: el degradado lima del ícono de fondo, una
+   carta de verde profundo, el código en fichas lima y botones en cápsula. */
+@font-face{font-family:"ZT Nature";src:url(../fonts/ZTNature-Medium.ttf) format("truetype");font-weight:500;font-display:swap}
+@font-face{font-family:"ZT Nature";src:url(../fonts/ZTNature-Black.ttf) format("truetype");font-weight:900;font-display:swap}
+:root{
+  color-scheme:light;
+  --forest:#0f3d27;--forest-2:#1f6b47;--lime:#cdf27a;--lime-top:#d7f99b;--lime-bottom:#a2e358;
+  --on-green:#a9c2b0;--paper:#f9faf7;--expense:#a8391c;--expense-tint:#f9ddd3;
+  --ease:cubic-bezier(.19,1,.22,1);
+  --font:"ZT Nature",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:var(--lime-bottom);-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100svh;color:var(--forest);font:500 17px/1.45 var(--font);-webkit-font-smoothing:antialiased;
+  background:linear-gradient(180deg,var(--lime-top),var(--lime-bottom)) fixed}
+h1,h2,p{margin:0;font-weight:500}
+a{color:inherit}
+
+.page{min-height:100svh;display:flex;flex-direction:column;padding:14px 14px 36px}
+.brand{align-self:flex-start;display:flex;align-items:center;gap:10px;height:46px;padding:0 18px 0 8px;border-radius:999px;background:var(--forest);color:#fff;text-decoration:none;font-size:16px}
+.brand img{width:32px;height:32px;border-radius:9px}
+.stage{width:100%;max-width:900px;margin:auto;padding:clamp(28px,6vh,64px) 6px 0;display:grid;gap:clamp(18px,3vh,28px)}
+.stage h1{font-size:clamp(40px,6.4vw,76px);line-height:.95;letter-spacing:-.045em;max-width:12em}
+.stage .lead{font-size:clamp(17px,1.6vw,20px);max-width:28em;color:rgba(15,61,39,.82)}
+
+/* La carta: verde profundo, con la veta lima de la tarjeta de miembro */
+.card{position:relative;border-radius:36px;color:#fff;padding:clamp(22px,3.4vw,34px);
+  background:linear-gradient(135deg,#27663d,var(--forest));box-shadow:0 30px 60px rgba(15,61,39,.28);isolation:isolate}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.2),transparent 40%)}
+.card .sprout{position:absolute;z-index:-2;right:clamp(24px,6vw,64px);top:-132px;width:168px;pointer-events:none}
+.card-grid{display:grid;grid-template-columns:1fr auto;gap:clamp(22px,4vw,48px);align-items:center}
+
+.pair{display:flex;align-items:center;gap:12px}
+.pair .logo{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:#fff;overflow:hidden}
+.pair .logo.claude{background:#f5f0e8}
+.pair .logo img{width:36px;height:36px;object-fit:contain}
+.pair .logo.app img{width:100%;height:100%}
+.pair .plus{font-size:26px;line-height:1;color:var(--lime);font-weight:900}
+.pair .initial{font-weight:900;font-size:24px;color:var(--forest);background:var(--lime);width:100%;height:100%;display:grid;place-items:center}
+
+.label{margin-top:26px;font-size:14px;color:var(--on-green)}
+.code{display:flex;gap:clamp(4px,1.2vw,7px);margin-top:10px}
+.tile{flex:1 1 0;min-width:0;max-width:50px;aspect-ratio:50/64;display:grid;place-items:center;border-radius:14px;background:var(--lime);color:var(--forest);
+  font:700 clamp(18px,4vw,32px)/1 ui-monospace,SFMono-Regular,Menlo,monospace;animation:pop .6s var(--ease) backwards;animation-delay:calc(var(--i) * 45ms)}
+.tile.gap{flex:0 0 12px;max-width:none;aspect-ratio:auto;background:none;font-size:28px;color:var(--lime)}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.92)}}
+
+.steps{margin:24px 0 0;padding:0;list-style:none;display:grid;gap:10px;font-size:16px;color:#fff}
+.steps li{display:flex;gap:12px;align-items:baseline}
+.steps b{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--lime);color:var(--forest);font-size:13px;font-weight:900;transform:translateY(-1px)}
+
+.pill{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:26px;height:56px;padding:0 10px 0 24px;border-radius:999px;
+  background:var(--lime);color:var(--forest);text-decoration:none;font-size:17px;transition:transform .3s var(--ease)}
+.pill:active{transform:scale(.97)}
+.pill i{flex:none;width:36px;height:36px;border-radius:50%;background:var(--forest);color:var(--lime);display:grid;place-items:center}
+.pill svg{width:16px;height:16px}
+.pill:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+.qr{display:grid;gap:12px;justify-items:center;text-align:center;font-size:14px;color:var(--on-green)}
+.qr-box{background:#fff;border-radius:28px;padding:16px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.qr-box img,.qr-box canvas{display:block;width:176px;height:176px}
+
+/* Estado: una cápsula que dice en qué va */
+.state{justify-self:start;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px 0 14px;border-radius:999px;font-size:16px;background:var(--forest);color:#fff}
+.state .dot{width:10px;height:10px;border-radius:50%;background:var(--lime);animation:pulse 1.6s ease-in-out infinite}
+.state[data-kind="ok"]{background:var(--forest)}
+.state[data-kind="ok"] .dot{animation:none;width:18px;height:18px;display:grid;place-items:center;background:var(--lime) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f3d27' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/12px no-repeat}
+.state[data-kind="no"],.state[data-kind="gone"]{background:var(--expense-tint);color:var(--expense)}
+.state[data-kind="no"] .dot,.state[data-kind="gone"] .dot{animation:none;background:var(--expense)}
+@keyframes pulse{50%{transform:scale(1.5);opacity:.55}}
+
+@media (max-width:700px){
+  .card-grid{grid-template-columns:1fr}
+  .qr{display:none}
+  .card .sprout{width:120px;top:-96px;right:20px}
+  .stage{padding-top:44px}
+}
+@media (prefers-reduced-motion:reduce){.tile,.state .dot{animation:none}}

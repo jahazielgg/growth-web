@@ -5,25 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#d7f99b">
 <title>Growth · Invitación</title>
 <link rel="icon" href="../assets/favicon.png">
-<style>
-:root{color-scheme:light dark;--bg:#f6f7f1;--ink:#14281d;--muted:#5a6a60;--accent:#17482f}
-@media (prefers-color-scheme:dark){:root{--bg:#0d1f16;--ink:#eef3ea;--muted:#a3b3a8;--accent:#c9f25d}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-main{max-width:520px;margin:0 auto;padding:72px 20px}
-h1{font-size:34px;line-height:1.15;letter-spacing:-.02em;margin:0 0 12px}
-p{margin:0 0 12px;color:var(--muted)}
-.button{display:inline-block;background:var(--accent);color:var(--bg);text-decoration:none;font-weight:600;padding:14px 22px;border-radius:999px;margin-top:16px}
-</style>
+<link rel="stylesheet" href="../assets/styles/portal.css">
 </head>
 <body>
-<main>
-<h1 id="title">Te invitaron a un grupo en Growth</h1>
-<p id="lead">Ábrelo en Growth para unirte. Cada uno anota con su tarjeta; todos ven lo que costó.</p>
-<a class="button" id="open" href="#">Abrir en Growth</a>
-</main>
+<div class="page">
+  <a class="brand" href="https://growthapp.me"><img src="../assets/apple-touch-icon.png" alt="">Growth</a>
+  <main class="stage">
+    <h1 id="title">Te invitaron a un grupo en Growth</h1>
+    <p class="lead" id="lead">Ábrelo en Growth para unirte. Cada uno anota con su tarjeta; todos ven lo que costó.</p>
+    <section class="card">
+      <img class="sprout" src="../assets/grow/sprout.png" alt="">
+      <div class="pair" aria-hidden="true">
+        <span class="logo app"><img src="../assets/apple-touch-icon.png" alt=""></span>
+        <span class="plus">+</span>
+        <span class="logo"><svg viewBox="0 0 24 24" width="30" height="30" fill="#0f3d27" aria-hidden="true"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM9 13c-3 0-6 1.5-6 4v2h12v-2c0-2.5-3-4-6-4Zm7.2.2c2.6.3 4.8 1.6 4.8 3.8v2h-4v-2c0-1.4-.3-2.7-.8-3.8Z"/></svg></span>
+      </div>
+      <a class="pill" id="open" href="#"><span id="openLabel">Abrir en Growth</span><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
+    </section>
+  </main>
+</div>
 <script>
 (() => {
   // La clave del grupo viene en el fragmento (#): no sale de este teléfono.
@@ -32,13 +35,14 @@ p{margin:0 0 12px;color:var(--muted)}
   const params = new URLSearchParams(fragment);
   const name = (params.get("n") || "").slice(0, 64);
   const open = document.getElementById("open");
+  document.documentElement.lang = en ? "en" : "es";
   document.getElementById("title").textContent = name
     ? (en ? `You're invited to ${name} on Growth` : `Te invitaron a ${name} en Growth`)
     : (en ? "You're invited to a group on Growth" : "Te invitaron a un grupo en Growth");
   document.getElementById("lead").textContent = en
     ? "Open it in Growth to join. Everyone logs with their own card; everyone sees what it cost."
     : "Ábrelo en Growth para unirte. Cada uno anota con su tarjeta; todos ven lo que costó.";
-  open.textContent = en ? "Open in Growth" : "Abrir en Growth";
+  document.getElementById("openLabel").textContent = en ? "Open in Growth" : "Abrir en Growth";
   if (!params.get("s") || !params.get("k")) { open.style.display = "none"; return; }
   const link = `growth://join?${fragment}`;
   open.href = link;
