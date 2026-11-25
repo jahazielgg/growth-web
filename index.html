@@ -320,7 +320,7 @@
 <script src="assets/scripts/vendor/lenis.min.js"></script>
 <script>
 // Los enlaces de descarga viven solo aquí. Mientras estén vacíos, el botón dice «Muy pronto».
-const LINKS = { appStore: "", mac: "" }; // https://apps.apple.com/app/id<número>
+const LINKS = { appStore: "https://apps.apple.com/app/id6802515483", mac: "" }; // mac: el DMG cuando exista
 for (const a of document.querySelectorAll("[data-link]")) {
   const url = LINKS[a.dataset.link];
   if (!url) continue;
